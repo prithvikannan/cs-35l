@@ -1,0 +1,292 @@
+Prithvi Kannan
+405110096
+Lab 5
+---------------
+
+1.	man -K <command>
+	
+	COMMANDS:
+	man man
+
+2. 	mv is at /usr/local/cs/bin/mv and sh is at /usr/bin/sh.
+	
+	COMMANDS:
+	which <command>
+
+3. 	./usr/local/cs/bin/pr - convert text files for printing
+	./usr/local/cs/bin/tr - translate or delete characters
+	
+	COMMANDS:
+	man find
+	find . -executable -name "?r" 
+
+4. 	/usr/bin/emacs-24.3
+	
+	COMMANDS:
+	cd /usr/bin/emacs
+	readlink -f usr/bin/emacs
+
+5.  /usr/bin/gcc is version 4.8.5 
+	/usr/local/cs/bin/gcc is version 9.2.0
+	
+	COMMANDS:
+	man gcc
+	whereis gcc
+	find -executable "gcc"
+	/usr/bin/gcc --version
+	/usr/local/cs/bin/gcc --version
+
+6. 	u+sx is adding execute and set user ID on execution properties to the user group
+	o-w removes write permission from the other users not in the file's group
+	
+	COMMANDS:
+	man chmod
+
+7.	/usr/local/cs
+	/usr/local/cs/src/bison
+	/usr/local/cs/src/bison/RCS
+	/usr/local/cs/src/gnuplot
+	/usr/local/cs/src/gnuplot/RCS
+	/usr/local/cs/src/coreutils
+	/usr/local/cs/src/coreutils/RCS
+	/usr/local/cs/src/emacs
+	/usr/local/cs/src/emacs/RCS
+	/usr/local/cs/src/gdb
+	/usr/local/cs/src/gdb/RCS
+	/usr/local/cs/src/gprolog
+	/usr/local/cs/src/gprolog/RCS
+	/usr/local/cs/src/grep
+	/usr/local/cs/src/grep/RCS
+	/usr/local/cs/src/ocaml
+	/usr/local/cs/src/ocaml/RCS
+	/usr/local/cs/share/info
+	/usr/local/cs/share/man/man1
+	/usr/local/cs/share/man/man5
+	/usr/local/cs/share/man/man3
+	/usr/local/cs/bin
+	/usr/local/cs/bin/.del
+	/usr/local/cs/bison-3.4.2
+	/usr/local/cs/bison-3.4.2/share
+	/usr/local/cs/bison-3.4.2/share/locale
+	/usr/local/cs/bison-3.4.2/share/locale/bg
+	/usr/local/cs/bison-3.4.2/share/locale/bg/LC_MESSAGES
+	/usr/local/cs/bison-3.4.2/share/locale/ca
+	/usr/local/cs/bison-3.4.2/share/locale/ca/LC_MESSAGES
+	/usr/local/cs/bison-3.4.2/share/locale/da
+	/usr/local/cs/bison-3.4.2/share/locale/da/LC_MESSAGES
+	/usr/local/cs/bison-3.4.2/share/locale/de
+	/usr/local/cs/bison-3.4.2/share/locale/de/LC_MESSAGES
+	/usr/local/cs/bison-3.4.2/share/locale/el
+	/usr/local/cs/bison-3.4.2/share/locale/el/LC_MESSAGES
+	/usr/local/cs/bison-3.4.2/share/locale/eo
+	/usr/local/cs/bison-3.4.2/share/locale/eo/LC_MESSAGES
+	/usr/local/cs/bison-3.4.2/share/locale/es
+	/usr/local/cs/bison-3.4.2/share/locale/es/LC_MESSAGES
+	/usr/local/cs/bison-3.4.2/share/locale/et
+	/usr/local/cs/bison-3.4.2/share/locale/et/LC_MESSAGES
+	/usr/local/cs/bison-3.4.2/share/locale/fi
+	/usr/local/cs/bison-3.4.2/share/locale/fi/LC_MESSAGES
+	/usr/local/cs/bison-3.4.2/share/locale/fr
+	/usr/local/cs/bison-3.4.2/share/locale/fr/LC_MESSAGES
+	/usr/local/cs/bison-3.4.2/share/locale/ga
+	/usr/local/cs/bison-3.4.2/share/locale/ga/LC_MESSAGES
+	/usr/local/cs/bison-3.4.2/share/locale/hr
+	/usr/local/cs/bison-3.4.2/share/locale/hr/LC_MESSAGES
+	/usr/local/cs/bison-3.4.2/share/locale/id
+	/usr/local/cs/bison-3.4.2/share/locale/id/LC_MESSAGES
+	/usr/local/cs/bison-3.4.2/share/locale/it
+	/usr/local/cs/bison-3.4.2/share/locale/it/LC_MESSAGES
+	/usr/local/cs/bison-3.4.2/share/locale/ja
+	/usr/local/cs/bison-3.4.2/share/locale/ja/LC_MESSAGES
+	/usr/local/cs/bison-3.4.2/share/locale/ms
+	/usr/local/cs/bison-3.4.2/share/locale/ms/LC_MESSAGES
+	/usr/local/cs/bison-3.4.2/share/locale/nb
+	/usr/local/cs/bison-3.4.2/share/locale/nb/LC_MESSAGES
+	/usr/local/cs/bison-3.4.2/share/locale/nl
+	/usr/local/cs/bison-3.4.2/share/locale/nl/LC_MESSAGES
+	/usr/local/cs/bison-3.4.2/share/locale/pl
+	/usr/local/cs/bison-3.4.2/share/locale/pl/LC_MESSAGES
+	/usr/local/cs/bison-3.4.2/share/locale/pt
+	/usr/local/cs/bison-3.4.2/share/locale/pt/LC_MESSAGES
+	/usr/local/cs/bison-3.4.2/share/locale/pt_BR
+	/usr/local/cs/bison-3.4.2/share/locale/pt_BR/LC_MESSAGES
+	/usr/local/cs/bison-3.4.2/share/locale/ro
+	/usr/local/cs/bison-3.4.2/share/locale/ro/LC_MESSAGES
+	/usr/local/cs/bison-3.4.2/share/locale/ru
+	/usr/local/cs/bison-3.4.2/share/locale/ru/LC_MESSAGES
+	/usr/local/cs/bison-3.4.2/share/locale/sr
+	/usr/local/cs/bison-3.4.2/share/locale/sr/LC_MESSAGES
+	/usr/local/cs/bison-3.4.2/share/locale/sv
+	/usr/local/cs/bison-3.4.2/share/locale/sv/LC_MESSAGES
+	/usr/local/cs/bison-3.4.2/share/locale/tr
+	/usr/local/cs/bison-3.4.2/share/locale/tr/LC_MESSAGES
+	/usr/local/cs/bison-3.4.2/share/locale/uk
+	/usr/local/cs/bison-3.4.2/share/locale/uk/LC_MESSAGES
+	/usr/local/cs/bison-3.4.2/share/locale/vi
+	/usr/local/cs/bison-3.4.2/share/locale/vi/LC_MESSAGES
+	/usr/local/cs/bison-3.4.2/share/locale/zh_CN
+	/usr/local/cs/bison-3.4.2/share/locale/zh_CN/LC_MESSAGES
+	/usr/local/cs/bison-3.4.2/share/locale/zh_TW
+	/usr/local/cs/bison-3.4.2/share/locale/zh_TW/LC_MESSAGES
+	/usr/local/cs/bison-3.4.2/share/locale/ast
+	/usr/local/cs/bison-3.4.2/share/locale/ast/LC_MESSAGES
+	/usr/local/cs/bison-3.4.2/share/locale/gl
+	/usr/local/cs/bison-3.4.2/share/locale/gl/LC_MESSAGES
+	/usr/local/cs/bison-3.4.2/share/locale/hu
+	/usr/local/cs/bison-3.4.2/share/locale/hu/LC_MESSAGES
+	/usr/local/cs/bison-3.4.2/share/locale/ia
+	/usr/local/cs/bison-3.4.2/share/locale/ia/LC_MESSAGES
+	/usr/local/cs/bison-3.4.2/share/locale/ky
+	/usr/local/cs/bison-3.4.2/share/locale/ky/LC_MESSAGES
+	/usr/local/cs/bison-3.4.2/share/locale/lt
+	/usr/local/cs/bison-3.4.2/share/locale/lt/LC_MESSAGES
+	/usr/local/cs/bison-3.4.2/share/locale/lv
+	/usr/local/cs/bison-3.4.2/share/locale/lv/LC_MESSAGES
+	/usr/local/cs/bison-3.4.2/share/locale/sl
+	/usr/local/cs/bison-3.4.2/share/locale/sl/LC_MESSAGES
+	/usr/local/cs/bison-3.4.2/share/locale/sq
+	/usr/local/cs/bison-3.4.2/share/locale/sq/LC_MESSAGES
+	/usr/local/cs/bison-3.4.2/share/locale/th
+	/usr/local/cs/bison-3.4.2/share/locale/th/LC_MESSAGES
+	/usr/local/cs/bison-3.4.2/share/locale/af
+	/usr/local/cs/bison-3.4.2/share/locale/af/LC_MESSAGES
+	/usr/local/cs/bison-3.4.2/share/locale/be
+	/usr/local/cs/bison-3.4.2/share/locale/be/LC_MESSAGES
+	/usr/local/cs/bison-3.4.2/share/locale/cs
+	/usr/local/cs/bison-3.4.2/share/locale/cs/LC_MESSAGES
+	/usr/local/cs/bison-3.4.2/share/locale/eu
+	/usr/local/cs/bison-3.4.2/share/locale/eu/LC_MESSAGES
+	/usr/local/cs/bison-3.4.2/share/locale/ko
+	/usr/local/cs/bison-3.4.2/share/locale/ko/LC_MESSAGES
+	/usr/local/cs/bison-3.4.2/share/locale/rw
+	/usr/local/cs/bison-3.4.2/share/locale/rw/LC_MESSAGES
+	/usr/local/cs/bison-3.4.2/share/locale/sk
+	/usr/local/cs/bison-3.4.2/share/locale/sk/LC_MESSAGES
+	/usr/local/cs/bison-3.4.2/share/aclocal
+	/usr/local/cs/bison-3.4.2/share/doc
+	/usr/local/cs/bison-3.4.2/share/doc/bison
+	/usr/local/cs/bison-3.4.2/share/doc/bison/examples
+	/usr/local/cs/bison-3.4.2/share/doc/bison/examples/c++
+	/usr/local/cs/bison-3.4.2/share/doc/bison/examples/c++/calc++
+	/usr/local/cs/bison-3.4.2/share/doc/bison/examples/c
+	/usr/local/cs/bison-3.4.2/share/doc/bison/examples/c/calc
+	/usr/local/cs/bison-3.4.2/share/doc/bison/examples/c/lexcalc
+	/usr/local/cs/bison-3.4.2/share/doc/bison/examples/c/mfcalc
+	/usr/local/cs/bison-3.4.2/share/doc/bison/examples/c/reccalc
+	/usr/local/cs/bison-3.4.2/share/doc/bison/examples/c/rpcalc
+	/usr/local/cs/bison-3.4.2/share/doc/bison/examples/d
+	/usr/local/cs/bison-3.4.2/share/doc/bison/examples/java
+	/usr/local/cs/bison-3.4.2/share/bison
+	/usr/local/cs/bison-3.4.2/share/bison/m4sugar
+	/usr/local/cs/bison-3.4.2/share/bison/skeletons
+	/usr/local/cs/bison-3.4.2/share/bison/xslt
+	/usr/local/cs/bison-3.4.2/share/man
+	/usr/local/cs/bison-3.4.2/share/man/man1
+	/usr/local/cs/bison-3.4.2/share/info
+	/usr/local/cs/bison-3.4.2/bin
+	/usr/local/cs/bison-3.4.2/lib
+	/usr/local/cs/.del
+	/usr/local/cs/.del/bison-3.2.3
+	/usr/local/cs/gdb-8.3.1
+	/usr/local/cs/gdb-8.3.1/share
+	/usr/local/cs/gdb-8.3.1/share/info
+	/usr/local/cs/gdb-8.3.1/share/gdb
+	/usr/local/cs/gdb-8.3.1/share/gdb/python
+	/usr/local/cs/gdb-8.3.1/share/gdb/python/gdb
+	/usr/local/cs/gdb-8.3.1/share/gdb/python/gdb/command
+	/usr/local/cs/gdb-8.3.1/share/gdb/python/gdb/function
+	/usr/local/cs/gdb-8.3.1/share/gdb/python/gdb/printer
+	/usr/local/cs/gdb-8.3.1/share/gdb/syscalls
+	/usr/local/cs/gdb-8.3.1/share/gdb/system-gdbinit
+	/usr/local/cs/gdb-8.3.1/share/man
+	/usr/local/cs/gdb-8.3.1/share/man/man5
+	/usr/local/cs/gdb-8.3.1/share/man/man1
+	/usr/local/cs/gdb-8.3.1/include
+	/usr/local/cs/gdb-8.3.1/include/gdb
+	/usr/local/cs/gdb-8.3.1/lib
+	/usr/local/cs/gdb-8.3.1/bin
+	/usr/local/cs/ocaml-4.09.0
+	/usr/local/cs/ocaml-4.09.0/bin
+	/usr/local/cs/ocaml-4.09.0/lib
+	/usr/local/cs/ocaml-4.09.0/lib/ocaml
+	/usr/local/cs/ocaml-4.09.0/lib/ocaml/stublibs
+	/usr/local/cs/ocaml-4.09.0/lib/ocaml/compiler-libs
+	/usr/local/cs/ocaml-4.09.0/lib/ocaml/caml
+	/usr/local/cs/ocaml-4.09.0/lib/ocaml/threads
+	/usr/local/cs/ocaml-4.09.0/lib/ocaml/ocamldoc
+	/usr/local/cs/ocaml-4.09.0/man
+	/usr/local/cs/ocaml-4.09.0/man/man1
+	/usr/local/cs/ocaml-4.09.0/man/man3
+	
+	COMMANDS:
+	man find
+	find . -type d -mtime -28
+
+8. 	292 links (on lnxsrv10)
+	
+	COMMANDS:
+	man ls
+	man grep
+	man wc
+	ls -l | grep "\->" | wc -l
+
+9. 	librom1394.so.0.3.0
+	
+	COMMANDS:
+	man ls
+	ls -latr | head -10	
+
+10.	The locale command gets its data from the environment variables. The man page says to look at 
+	locale (7) and that gives us that locale data in the LOCPATH. Within the LOCPATH, the files are
+	at /usr/lib/locale.
+	
+	COMMANDS:
+	man locale
+	man 7 locale
+
+11. downcase-dwim 
+	downcase-region 
+	downcase-word  
+
+	COMMANDS:
+	man emacs
+	emacs
+	C-h a downcase
+
+12. C-M-r runs the command isearch-backward-regexp
+	C-M-s runs the command isearch-forward-regexp
+	C-M-t runs the command transpose-sexps
+	C-M-u runs the command backward-up-list
+	C-M-v runs the command scroll-other-window
+
+	COMMANDS:
+	man emacs
+	C-h k <command>
+
+13. C-g runs the command keyboard-quit (found in global-map), which is an
+	interactive compiled Lisp function in ‘simple.el’.
+	It is bound to C-g.
+
+	COMMANDS:
+	man emacs
+	C-h k C-g
+
+14. yank is C-y.  Reinsert ("paste") the last stretch of killed text
+
+	COMMANDS:
+	man emacs
+	C-h a yank Enter C-M-v
+
+
+15. ls -l shows files in a long form with permissions and timestamps
+	dired shows all files, including those hidden with a dot, with permissions and timestamps (like ls -la)
+	
+	COMMANDS:
+	man emacs
+	man ls
+	ls -l 
+	emacs Enter C-h a dired C-x d 
+
+
+
+
