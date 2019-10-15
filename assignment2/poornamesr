@@ -38,7 +38,7 @@ then
 fi
 
 # checking for poornames
-reg="$reg([^\/]{15,}\..*$)|"
+reg="$reg([^\/]{15,}[^\/]*$)|"
 reg="$reg\/*[^a-zA-Z\._\/-][^\/]*$|"
 reg="$reg\/-[^\/]*$|"
 reg="$reg\/\.[^.]+[^\/]*$|"
