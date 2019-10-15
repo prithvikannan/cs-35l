@@ -1,0 +1,29 @@
+#! /bin/sh
+
+# input checking
+D="$1"
+if [ $# -eq 0 ]
+then
+    D="."    
+elif [ $# -ge 2 ]
+then
+    echo "You have given more than one operand" >&2
+    exit 1
+elif [ ${1:0:1} == "-" ]
+then
+    echo "Your operand starts with -" >&2
+    exit 1
+elif [ ! -d "$1" ]
+then
+    echo "Your operand is not a directory" >&2
+    exit 1
+fi
+
+# checking for poornames
+reg="([^\/]{15,}\..*$)|\/*[^a-zA-Z0-9\._\/-][^\/]*$|\/-[^\/]*$|"
+reg="$reg\/\.[^.]+[^\/]*$|\/\.\.[^\/]+$"
+
+{ find -H $D -maxdepth 1 | grep -E $reg & find -H $D -maxdepth 1 | 
+sort -f | uniq -Di; } | sort -f | uniq -u
+{ find -H $D -maxdepth 1 | grep -E $reg & find -H $D -maxdepth 1 | 
+sort -f | uniq -Di; } | sort -f | uniq -d

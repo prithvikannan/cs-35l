@@ -1,0 +1,9 @@
+for file in $1/*; do
+    `./poornames.sh $1/file`
+    echo $file
+done
+
+# - r flag would show up as $1
+# dont use ls, use for loop
+# for finding duplicate names, do a nested for loop or sort ignoring case
+# 1-4 can be regex searches
