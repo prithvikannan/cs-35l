@@ -67,14 +67,22 @@ cat hwnwdshw.htm | ./buildwords | less > hwords
     words
 
 tr [:upper:] [:lower:] <assign2.html | tr -cs "A-Za-z'" '[\n*]' | sort -u | 
-comm -23 - hwords > hmispelled
+comm -23 - hwords > hmispelled 
     This command finds all of the maximal nonempty sequences of ASCII letters 
     or apostrophes and checks if they are not in the hawaiian dictionary
+
+tr [:upper:] [:lower:] <assign2.html | tr -cs "A-Za-z'" '[\n*]' | sort -u | 
+comm -23 - hwords | wc -w
+    The number of non hawaiian words is 554.
 
 tr [:upper:] [:lower:] <assign2.html | tr -cs "A-Za-z'" '[\n*]' | sort -u | 
 comm -23 - words > emispelled
     This command does the same as above, but checks if they are not in the 
     english dictionary
+
+tr [:upper:] [:lower:] <assign2.html | tr -cs "A-Za-z'" '[\n*]' | sort -u | 
+comm -23 - words | wc -w
+    The number of non english words is 65.
 
 comm emispelled hmispelled
     This command compares the words that are marked mispelled in english with 
