@@ -1,0 +1,63 @@
+Laboratory:
+
+1:
+wget ftp://ftp.gnu.org/gnu/coreutils/coreutils-8.29.tar.xz 
+wget ftp://ftp.gnu.org/gnu/coreutils/coreutils-8.29.tar.xz.sig 
+wget https://ftp.gnu.org/gnu/gnu-keyring.gpg
+gpg --verify --keyring ./gnu-keyring.gpg coreutils-8.29.tar.xz.sig
+    Here is the warning I get. This makes sense since I never indicated the 
+    signature belongs to the owner.
+    gpg: WARNING: This key is not certified with a trusted signature!
+    gpg: There is no indication that the signature belongs to the owner.
+    Primary key fingerprint: 6C37 DC12 121A 5006 BC1D  B804 DF6F D971 3060 37D9
+
+2:
+tar -xJvf coreutils-8.29.tar.xz
+    Unzip the files
+mkdir ./install
+    Make directory to hold install
+cd coreutils-8.29
+    Navigate into the coreutils directory
+emacs INSTALL
+    Read instructions on how to install
+./configure --prefix=/u/ee/ugrad/prithvik/Documents/cs35l/assign3/install
+    Tell the system to install in my own install folder 
+make
+make install
+
+3:
+cd install/bin
+./ls -a -A
+./ls -A -a
+
+4:
+cd ~/Documents/cs35l/assign3/coreutils-8.29
+touch patch_file
+emacs patch_file
+    paste in text from message 10 of bug 30963
+man patch
+patch -p1 < patch_file
+emacs src/ls.c
+C-x case 'A'
+
+5: 
+make 
+
+6:
+cd src
+./ls -a -A
+    Now the . and .. files don't get printed
+./ls -A -a
+    To make sure, I ran the original command and noticed that . and .. were 
+    still being printed
+
+
+Homework:
+wget https://web.cs.ucla.edu/classes/fall19/cs35L/assign/randline.py
+chmod +x randline.py
+python randline.py /dev/null
+emacs randline.py
+python3 randline.py /dev/null
+emacs randline.py
+touch shuf.py
+chmod +x shuf.py
