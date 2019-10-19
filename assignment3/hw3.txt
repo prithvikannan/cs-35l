@@ -1,3 +1,6 @@
+Prithvi Kannan
+UID: 405110096
+
 Q1: Does the patch improve the performance of ls or make it worse? 
 
 The patch removes an if statement "if (ignore_mode == IGNORE_DEFAULT)" in the 
@@ -46,4 +49,10 @@ automatic tuple unpacking, therefore the line (errno, strerror) is invalid. This
 post explains why this was removed: https://www.python.org/dev/peps/pep-3113/
 
 
+Q5. What happens when your shuf.py script is invoked with Python 2 rather than 
+Python 3, and why?
+
+Running shuf with python2 still works and gives the same behavior as python3
+since python is backward compatible. This is to allow for new code to be written
+in python3 and still run with older python 2 systems.
 

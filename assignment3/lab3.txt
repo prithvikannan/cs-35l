@@ -1,3 +1,6 @@
+Prithvi Kannan
+UID: 405110096
+
 Laboratory:
 
 1:
@@ -61,3 +64,5 @@ python3 randline.py /dev/null
 emacs randline.py
 touch shuf.py
 chmod +x shuf.py
+emacs ~/Documents/cs35l/assign3/coreutils-8.29/src/shuf.c
+emacs ~/Documents/cs35l/assign3/randline.py
