@@ -4,6 +4,7 @@
 # UID: 405110096
 
 import random, sys, argparse, string
+
 from optparse import OptionParser
 
 class shuf:
@@ -36,24 +37,20 @@ def main():
 
     parser = OptionParser(version=version_msg, usage=usage_msg)
 
-    # -n, --head-count
     parser.add_option("-n", "--head-count",
         action="store", dest="num_lines", default=sys.maxsize,
         help="output at most count lines")
     
-    # -i, --input-range=LO-HI
     parser.add_option("-i", "--input-range",
         action="store", dest="inputRange", default="",
         help="treat each number LO through HI as an input line")
 
-    # -r, --repeat
     parser.add_option("-r", "--repeat",
         action="store_true", dest="isRepeat", default=False,
         help="output lines can be repeated")
 
     options, args = parser.parse_args(sys.argv[1:])
 
-    # -n, --head-count
     try:
         num_lines = int(options.num_lines)
     except:
@@ -61,13 +58,10 @@ def main():
     if num_lines < 0:
         parser.error("negative count {0}".format(num_lines))
 
-    # -r, --repeat
     isRepeat = options.isRepeat
 
-    # -i, --input-range=LO-HI
     inputRange = options.inputRange
     if len(inputRange) > 0:
-        # checking if inputs are correct for -i option
         if len(args) != 0:
             parser.error("extra operand '{0}'".format(args[0]))
 
@@ -98,17 +92,15 @@ def main():
             parser.error("invalid input range: '{0}'".
             format(options.inputRange))
 
-        # invoke -i option to treat each number like an input line
         inputs = list(range(firstNum,lastNum+1))
         for i in range(len(inputs)):
             inputs[i] = str(inputs[i]) + "\n"
 
     else:
-        # accept input from stdin 
-        if len(args) == 0 or (len(args) == 1 and args[0] == "-"):
-            inputs = sys.stdin.readlines()
+        if len(args) == 0: 
+            if (len(args) == 1 and args[0] == "-"):
+                inputs = sys.stdin.readlines()
         
-        # accept input from a file
         elif len(args) == 1:
             try:
                 f = open(args[0], 'r')
@@ -118,7 +110,6 @@ def main():
                 errno, strerror = e.args
                 parser.error("I/O error({0}): {1}".format(errno,strerror))
 
-        # cannot accept more than one argument
         else:
             parser.error("extra operand '{0}'".format(args[1]))
 
