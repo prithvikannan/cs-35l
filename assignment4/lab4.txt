@@ -1,0 +1,83 @@
+wget https://web.cs.ucla.edu/classes/fall19/cs35L/assign/
+coreutils-with-bug.tar.gz
+    Download the bad version of coreutils
+tar -xzvf coreutils-with-bug.tar.gz
+    Unzip the files
+
+mkdir ~/badCoreutils
+    Make a folder to install the bad coreutils version
+
+./coreutils-with-bug/configure --prefix=/u/ee/ugrad/prithvik/badCoreutils
+    install the bad coreutils in the folder we made
+
+make
+make install
+    Got this error message since futimens is being redeclared:
+    error: conflicting types for 'futimens'
+    int futimens (int, char const *, struct timespec const [2]);
+        ^
+
+wget https://web.cs.ucla.edu/classes/fall19/cs35L/assign/coreutils.diff
+    Grab the patch to fix this issue
+
+cd coreutils-with-bug
+    Navigate to coreutils directory 
+mv ../coreutils.diff .
+    Move the patch file from assign4 to the coreutils directory
+patch --strip=0 < coreutils.diff OR patch -p0 < coreutils.diff
+    Apply the patch with the --strip flag to strip the smallest prefix with 0
+    leading slashes from each file name in the patchfile.
+make
+    Tried to run make but it failed since I needed to run configure again
+./configure --prefix=/u/ee/ugrad/prithvik/badCoreutils
+    Ran configure again
+make    
+    Ran make with no bugs this time
+
+cd ~/badCoreutils
+    Navigated to where I installed the coreutils
+tmp=$(mktemp -d)
+cd $tmp
+touch -d '1918-11-11 11:00 GMT' wwi-armistice-cs35L
+touch now
+sleep 1
+touch now1
+TZ=UTC0 ~/badCoreutils/bin/ls -lt --full-time wwi-armistice-cs35L now now1
+    Followed the steps given in the lab to replicate the error using the 
+    bad coreutils ls function.
+    The output is as follows:
+    -rw-r--r-- 1 prithvik eeugrad 0 1918-11-11 11:00:00.000000000 +0000 wwi-armistice-cs35L
+    -rw-r--r-- 1 prithvik eeugrad 0 2019-10-23 22:48:35.545821118 +0000 now1
+    -rw-r--r-- 1 prithvik eeugrad 0 2019-10-23 22:48:27.276526887 +0000 now
+
+cd ~
+mkdir tmp
+cd tmp
+touch -d '1918-11-11 11:00 GMT' wwi-armistice-cs35L
+touch now
+sleep 1
+touch now1
+TZ=UTC0 ls -lt --full-time wwi-armistice now now1
+    I attempted to reproduce the error using my home directory instead of the 
+    $tmp directory. Using the same test case as above, I ran into a different
+    issue with ls. wwi-armistice shows up with a timestamp of 2054-12-17 even 
+    though I ran the touch -d command with 1918-11-11.[add reasoning why?]
+    The output is as follows:
+    -rw-r--r-- 1 prithvik eeugrad 0 2054-12-17 17:28:16.000000000 +0000 wwi-armistice-cs35L
+    -rw-r--r-- 1 prithvik eeugrad 0 2019-10-23 22:53:53.521649000 +0000 now1
+    -rw-r--r-- 1 prithvik eeugrad 0 2019-10-23 22:53:46.634002000 +0000 now
+
+emacs timespec.h
+C-x 4 a
+
+
+timespec_cmp (struct timespec a, struct timespec b)
+{
+  return (a.tv_sec > b.tv_sec) ? 1 : (a.tv_sec < b.tv_sec) ? -1 : a.tv_nsec - b.tv_nsec;
+}
+
+timespec_cmp (struct timespec a, struct timespec b)
+{
+  int diff = a.tv_sec - b.tv_sec;
+  return diff ? diff : a.tv_nsec - b.tv_nsec;
+}
