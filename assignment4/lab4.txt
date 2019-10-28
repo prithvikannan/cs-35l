@@ -81,3 +81,11 @@ timespec_cmp (struct timespec a, struct timespec b)
   int diff = a.tv_sec - b.tv_sec;
   return diff ? diff : a.tv_nsec - b.tv_nsec;
 }
+
+2019-10-23  Prithvi Kannan  <prithvik@lnxsrv03.seas.ucla.edu>
+
+        * timespec.h: Fixed the comparator for timespec_cmp by eliminating overflow
+        created by difference and replacing with comparison. First check if one is greater
+        then check if other is greater, and only if they are equal look at nanoseconds.
+
+
