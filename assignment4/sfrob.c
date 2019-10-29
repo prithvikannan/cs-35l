@@ -11,7 +11,6 @@ int frobcmp(char const *a, char const *b)
         // iterate through char array with pointers a and b
         while (*a != ' ' && *b != ' ')
         {
-
             // unfrobnicate a single byte
             char a_i = *a ^ 42;
             char b_i = *b ^ 42;
@@ -34,33 +33,40 @@ int frobcmp(char const *a, char const *b)
     return 0;
 }
 
-// comparator function to pass into qsort in main
+// custom comparator that calls frobcmp
 int cmp(const void *a, const void *b)
 {
-
     return frobcmp(*(char **)a, *(char **)b);
 }
 
 int main()
 {
-
     char current_char;
 
     // allocate memory for array of strings
     char **arr = (char **)malloc(sizeof(char *));
     // allocate memory for new string
     char *temp_string = (char *)malloc(sizeof(char));
-
     if (arr == NULL || temp_string == NULL)
     {
         fprintf(stderr, "Memory allocation error");
         exit(1);
     }
 
-    int string_ptr = -1;
+    int string_ptr = 0;
     int char_ptr = 0;
     arr[0] = temp_string;
-    bool needNewString = true;
+    bool needNewString = false;
+
+    // increases size of string array to hold one more string
+    arr = (char **)realloc(arr, (string_ptr + 1) * sizeof(char *));
+    // creates the first string
+    temp_string = (char *)malloc(sizeof(char));
+    if (arr == NULL || temp_string == NULL)
+    {
+        fprintf(stderr, "Memory allocation error");
+        exit(1);
+    }
 
     // read from stdin until eof or error
     while (true)
@@ -74,16 +80,13 @@ int main()
         }
         else if (feof(stdin))
         {
+            // hit end of file, exit while loop
             break;
         }
 
-        // if program is still adding characters to existing string
         if (!needNewString)
         {
-            // increases size of string 
             temp_string = (char *)realloc(temp_string, (char_ptr + 1) * sizeof(char));
-
-            // checks for memory error
             if (temp_string == NULL)
             {
                 fprintf(stderr, "Memory allocation error");
@@ -96,40 +99,30 @@ int main()
                 needNewString = true;
             }
         }
-
-        // if program must create a new string
-        else
+        else // if program must create a new string
         {
             char_ptr = 0;
-            
-            // if consecutive spaces, then skip iteration
+
+            // handle consecutive spaces by skipping iteration
             if (current_char == ' ' && char_ptr == 0)
             {
                 continue;
             };
 
             string_ptr++;
-
-            // increases size of string array
-            arr = (char **)realloc(arr, (string_ptr + 1) * sizeof(char *));
-            if (arr == NULL)
-            {
-                fprintf(stderr, "Memory allocation error");
-                exit(1);
-            }
-
-            // increases size of string
-            temp_string = (char *)malloc(sizeof(char));
-            if (temp_string == NULL)
-            {
-                fprintf(stderr, "Memory allocation error");
-                exit(1);
-            }
-
             needNewString = false;
+
+            arr = (char **)realloc(arr, (string_ptr + 1) * sizeof(char *));
+            temp_string = (char *)malloc(sizeof(char));
+            if (arr == NULL || temp_string == NULL)
+            {
+                fprintf(stderr, "Memory allocation error");
+                exit(1);
+            }
+
         }
 
-        // add new char
+        // add new char after adjusting pointers and allocating memory
         temp_string[char_ptr] = current_char;
         arr[string_ptr] = temp_string;
         char_ptr++;
@@ -138,13 +131,16 @@ int main()
     // add trailing space if not present
     if (string_ptr != -1 && arr[string_ptr][char_ptr - 1] != ' ')
     {
-
         temp_string = (char *)realloc(temp_string, (char_ptr + 1) * sizeof(char));
+        if (temp_string == NULL)
+        {
+            fprintf(stderr, "Memory allocation error");
+            exit(1);
+        }
         temp_string[char_ptr] = ' ';
         arr[string_ptr] = temp_string;
     }
 
-    // use custom comparison operator to sort array of strings
     qsort(arr, string_ptr + 1, sizeof(char *), cmp);
 
     // print to stdout
@@ -154,14 +150,13 @@ int main()
         int j = 0;
         while (true)
         {
-            // print character by character and catch any errors
             if (putchar(arr[i][j]) == EOF)
             {
                 fprintf(stderr, "Printing error");
                 exit(1);
             }
 
-            // if space then move to next iteration
+            // if space then move to next line
             if (arr[i][j] == ' ')
             {
                 break;

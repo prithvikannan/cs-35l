@@ -61,31 +61,27 @@ TZ=UTC0 ls -lt --full-time wwi-armistice now now1
     I attempted to reproduce the error using my home directory instead of the 
     $tmp directory. Using the same test case as above, I ran into a different
     issue with ls. wwi-armistice shows up with a timestamp of 2054-12-17 even 
-    though I ran the touch -d command with 1918-11-11.[add reasoning why?]
+    though I ran the touch -d command with 1918-11-11. This is due to the epoch
+    time so everything dated before 1970 wil wrap around. 
     The output is as follows:
     -rw-r--r-- 1 prithvik eeugrad 0 2054-12-17 17:28:16.000000000 +0000 wwi-armistice-cs35L
     -rw-r--r-- 1 prithvik eeugrad 0 2019-10-23 22:53:53.521649000 +0000 now1
     -rw-r--r-- 1 prithvik eeugrad 0 2019-10-23 22:53:46.634002000 +0000 now
 
+Using gdb, I traced the code and found that the error was in the timespec.h
+file, specifically in the function timespec_cmp where there was overflow.
+
 emacs timespec.h
 C-x 4 a
-
-
-timespec_cmp (struct timespec a, struct timespec b)
-{
-  return (a.tv_sec > b.tv_sec) ? 1 : (a.tv_sec < b.tv_sec) ? -1 : a.tv_nsec - b.tv_nsec;
-}
-
-timespec_cmp (struct timespec a, struct timespec b)
-{
-  int diff = a.tv_sec - b.tv_sec;
-  return diff ? diff : a.tv_nsec - b.tv_nsec;
-}
-
-2019-10-23  Prithvi Kannan  <prithvik@lnxsrv03.seas.ucla.edu>
-
-        * timespec.h: Fixed the comparator for timespec_cmp by eliminating overflow
+    Then I opened the timespec.h file and updated the changelog with the 
+    modification with the following text:
+        Fixed the comparator for timespec_cmp by eliminating overflow
         created by difference and replacing with comparison. First check if one is greater
         then check if other is greater, and only if they are equal look at nanoseconds.
+    and replaced the lines:
+        int diff = a.tv_sec - b.tv_sec;
+        return diff ? diff : a.tv_nsec - b.tv_nsec;
+    with the line:
+        return (a.tv_sec > b.tv_sec) ? 1 : (a.tv_sec < b.tv_sec) ? -1 : a.tv_nsec - b.tv_nsec;
 
 
