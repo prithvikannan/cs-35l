@@ -1,4 +1,3 @@
-
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
@@ -23,8 +22,6 @@ int main(int argc, const char *argv[])
 
     char dict[256] = {'\0'};
 
-    char c[1];
-    char output[1];
     int i;
     for (i = 0; i < strlen(fromPtr); i++)
     {
@@ -36,11 +33,13 @@ int main(int argc, const char *argv[])
         dict[fromPtr[i]] = toPtr[i];
     }
 
-    while (read(0, c, 1) > 0)
+    char tempBuf[1];
+    char output[1];
+    while (read(0, tempBuf, 1) > 0)
     {
-        if (dict[c[0]] != '\0')
+        if (dict[tempBuf[0]] != '\0')
         {
-            output[0] = dict[c[0]];
+            output[0] = dict[tempBuf[0]];
             if (write(1, output, 1) < 0)
             {
                 fprintf(stderr, "Unable to write");
@@ -49,7 +48,7 @@ int main(int argc, const char *argv[])
         }
         else
         {
-            if (write(1, c, 1) < 0)
+            if (write(1, tempBuf, 1) < 0)
             {
                 fprintf(stderr, "Unable to write");
                 exit(1);

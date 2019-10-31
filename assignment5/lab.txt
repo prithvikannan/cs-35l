@@ -1,13 +1,107 @@
 1. wrote tr2b.c
+I learned that in C the input count is passed in as an int argc and the inputs
+are passed in as a char pointer argv. First I checked the input values to make 
+sure they were correct by checking if exactly 3 operands were given and that the
+from and to string were the same length. 
+
+Then I verified that there were no duplicate letters, and built my dictionary
+between the letters to translate.
+
+Next I used getChar() to read a character, and if I had a translation for that 
+letter, I would apply it and use putChar(). Otherwise, I would just use 
+putChar() and go to the next character.
+
+To compile, I used: gcc -std=c11 tr2b.c -o tr2b
+
 2. wrote tr2u.c
+Similar to tr2b.c, I started with input checking and then moved to creating my 
+dictionary. 
+
+However, instead of using getChar() and putChar(), I used a temporary buffer of
+size 1 and the read() command to take in a single character. Then I would check
+if that character could be translated and translate if necessary and then output
+using the write() command.
+
+To compile, I used: gcc -std=c11 tr2u.c -o tr2u
+
 3. testing
+
+man head
+    Looked at the documentation for head, which takes the first x bytes of a
+    file when used with the --bytes flag. 
 head --bytes=5000000 /dev/urandom > tester.txt
     ran this script to create a random file of 5000000 bytes. 
+
+man strace
+    Looked at the documentation of strace, realized that I needed to pass
+    -c flag for easy counting.
+
 strace -c ./tr2b 'A' 'B' < tester.txt > result_b.txt
 strace -c ./tr2u 'A' 'B' < tester.txt > result_u.txt
-    ran strace
+    Ran strace on buffered and unbuffered tr commands on my test input file.
+    I set from to 'A' and to to 'B' arbitrarily, and piped the outputs to files.
+    
+    tr2b:
+    % time     seconds  usecs/call     calls    errors syscall
+    ------ ----------- ----------- --------- --------- ----------------
+    0.00    0.000000           0         2           read
+    0.00    0.000000           0         1           write
+    0.00    0.000000           0         2           open
+    0.00    0.000000           0         2           close
+    0.00    0.000000           0         4           fstat
+    0.00    0.000000           0        10           mmap
+    0.00    0.000000           0         3           mprotect
+    0.00    0.000000           0         1           munmap
+    0.00    0.000000           0         1           brk
+    0.00    0.000000           0         1         1 access
+    0.00    0.000000           0         1           execve
+    0.00    0.000000           0         1           arch_prctl
+    ------ ----------- ----------- --------- --------- ----------------
+    100.00    0.000000                    29         1 total
+
+
+    tr2u:
+    % time     seconds  usecs/call     calls    errors syscall
+    ------ ----------- ----------- --------- --------- ----------------
+    56.25    0.484831           0   5000000           write
+    43.75    0.377132           0   5000002           read
+    0.00    0.000000           0         2           open
+    0.00    0.000000           0         2           close
+    0.00    0.000000           0         2           fstat
+    0.00    0.000000           0         8           mmap
+    0.00    0.000000           0         3           mprotect
+    0.00    0.000000           0         1           munmap
+    0.00    0.000000           0         1           brk
+    0.00    0.000000           0         1         1 access
+    0.00    0.000000           0         1           execve
+    0.00    0.000000           0         1           arch_prctl
+    ------ ----------- ----------- --------- --------- ----------------
+    100.00    0.861963              10000024         1 total
+
+
+strace -c ./tr2b 'A' 'B' < tester.txt
+strace -c ./tr2u 'A' 'B' < tester.txt
+    Ran strace on buffered and unbuffered tr commands on my test input file.
+    I set from to 'A' and to to 'B' arbitrarily, and had it output to the 
+    terminal.
+
+    I got 29 system calls for tr2b and 10000024 for tr2u, just as above.
+
 
 
 4. timing the runs
 time ./tr2b 'A' 'B' < tester.txt > result_b.txt
 time ./tr2u 'A' 'B' < tester.txt > result_u.txt
+    Use the time command to keep track of how long the process took to run tr
+    buffered and unbuffered.
+
+    tr2b:
+    real    0m0.004s
+    user    0m0.000s
+    sys     0m0.002s
+
+    tr2u:
+    real    0m9.232s
+    user    0m1.377s
+    sys     0m7.813s
+
