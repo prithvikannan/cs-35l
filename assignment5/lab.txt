@@ -1,0 +1,13 @@
+1. wrote tr2b.c
+2. wrote tr2u.c
+3. testing
+head --bytes=5000000 /dev/urandom > tester.txt
+    ran this script to create a random file of 5000000 bytes. 
+strace -c ./tr2b 'A' 'B' < tester.txt > result_b.txt
+strace -c ./tr2u 'A' 'B' < tester.txt > result_u.txt
+    ran strace
+
+
+4. timing the runs
+time ./tr2b 'A' 'B' < tester.txt > result_b.txt
+time ./tr2u 'A' 'B' < tester.txt > result_u.txt
