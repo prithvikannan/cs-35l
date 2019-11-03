@@ -6,7 +6,6 @@
 #include <ctype.h>
 #include <stdio.h>
 
-
 bool isF = false;
 
 // implements comparison between a and b without deobfuscating
@@ -48,60 +47,58 @@ int cmp(const void *a, const void *b)
 
 int main(int argc, const char *argv[])
 {
-
-    // checks for -f option
-    if (argc > 2)
+    switch (argc)
     {
-        write(2, "Error: Too many arguments.\n", 27);
-        exit(1);
-    }
-    // verify -f option as only possible second argument
-    else if (argc == 2)
-    {
+    case 1:
+        isF = false;
+        break;
+    case 2:
         if (argv[1][0] != '-' && argv[1][1] != 'f')
         {
-            write(2, "Error: Invalid arguments.\n", 26);
+            fprintf(stderr, "Invalid arguments");
             exit(1);
         }
         else
         {
             isF = true;
         }
+        break;
+    default:
+        fprintf(stderr, "Invalid number of arguments");
+        exit(1);
     }
-    isF = false;
 
     struct stat buf;
     fstat(0, &buf);
-    size_t fileSize;
+    size_t size;
     if (fstat(0, &buf) < 0)
     {
-        write(2, "Error with system call.\n", 24);
+        fprintf(stderr, "Unable to get info");
         exit(1);
     }
 
     char *regFile;
-    char **strArray = NULL;
+    char **arr = NULL;
     int s = -1;
     bool addNewString = true;
 
     if (S_ISREG(buf.st_mode))
     {
-        fileSize = buf.st_size;
+        size = buf.st_size;
 
-        // allocate memory for file
-        regFile = (char *)malloc(sizeof(char) * (fileSize + 1));
-        if (read(0, regFile, fileSize) < 0)
+        regFile = (char *)malloc(sizeof(char) * (size + 1));
+        if (read(0, regFile, size) < 0)
         {
-            write(2, "Error with system call.\n", 24);
+            fprintf(stderr, "Unable to read");
             exit(1);
         }
 
         int words = 0;
         int i = 0;
 
-        while (i < fileSize)
+        while (i < size)
         {
-            // make sure first character isn't a space
+            // catch first char space
             if (i == 0 && regFile[i] != ' ')
             {
                 words++;
@@ -109,39 +106,36 @@ int main(int argc, const char *argv[])
 
             if (regFile[i] == ' ')
             {
-                // account for multiple spaces
-                while (regFile[i] == ' ' && i < fileSize)
+                // handle consecutive spaces by skipping iteration
+                while (regFile[i] == ' ' && i < size)
                 {
                     i++;
                 }
-                // continue counting words
-                if (i < fileSize)
+                if (i < size)
                 {
                     words++;
                 }
             }
             i++;
         }
+        regFile[size] = ' ';
 
-        // append space at the end of the file
-        regFile[fileSize] = ' ';
-
-        // allocate memory for array based on file's word count
-        strArray = (char **)malloc(sizeof(char *) * words);
-        if (strArray == NULL)
+        // allocate memory equal to words
+        arr = (char **)malloc(sizeof(char *) * words);
+        if (arr == NULL)
         {
             fprintf(stderr, "Memory allocation error");
             exit(1);
         }
 
-        // add words in file to array
-        for (i = 0; i < fileSize; i++)
+        // add words to array
+        for (i = 0; i < size; i++)
         {
             if (addNewString && regFile[i] != ' ')
             {
                 s++;
                 addNewString = false;
-                strArray[s] = &regFile[i];
+                arr[s] = &regFile[i];
             }
             if (!addNewString && regFile[i] == ' ')
             {
@@ -151,132 +145,111 @@ int main(int argc, const char *argv[])
     }
     else
     {
-        // allocate new memory for array
-        strArray = (char **)malloc(sizeof(char *));
-        if (strArray == NULL)
+        arr = (char **)malloc(sizeof(char *));
+        if (arr == NULL)
         {
-                fprintf(stderr, "Memory allocation error");
+            fprintf(stderr, "Memory allocation error");
             exit(1);
         }
     }
 
-    char *newString;
-    char in[1];
-    char newChar;
-    int c = 0;
+    char *temp_string;
+    char input[1];
+    char current_char;
+    int char_ptr = 0;
     while (true)
     {
 
-        int r = read(0, in, 1);
+        int r = read(0, input, 1);
         if (r == 0)
         {
             break;
         }
         else if (r < 0)
         {
-            write(2, "Error reading from standard input.\n", 35);
+            fprintf(stderr, "Unable to read");
             exit(1);
         }
 
-        // read in character
-        newChar = in[0];
+        current_char = input[0];
 
-        // if program is still adding characters to existing string
         if (!addNewString)
         {
-
-            // reallocates memory for new character
-            newString = (char *)realloc(newString, (c + 1) * sizeof(char));
-            if (newString == NULL)
+            temp_string = (char *)realloc(temp_string, (char_ptr + 1) * sizeof(char));
+            if (temp_string == NULL)
             {
                 fprintf(stderr, "Memory allocation error");
                 exit(1);
             }
 
-            // updates growing string
-            newString[c] = newChar;
-            strArray[s] = newString;
-            c++;
-
-            // ignore multiple spaces
-            if (newChar == ' ')
+            // space is delimiter of new strings
+            if (current_char == ' ')
             {
                 addNewString = true;
             }
         }
 
-        // if program must create a new string
-        else
+        else // if program must create a new string
         {
+            char_ptr = 0;
 
-            // reset string length
-            c = 0;
-
-            // account for multiple spaces
-            if (newChar == ' ' && c == 0)
+            // handle consecutive spaces by skipping iteration
+            if (current_char == ' ' && char_ptr == 0)
             {
                 continue;
             };
 
             s++;
 
-            // reallocates memory for growing string
-            strArray = (char **)realloc(strArray, (s + 1) * sizeof(char *));
-            if (strArray == NULL)
+            arr = (char **)realloc(arr, (s + 1) * sizeof(char *));
+            temp_string = (char *)malloc(sizeof(char));
+            if (arr == NULL || temp_string == NULL)
             {
                 fprintf(stderr, "Memory allocation error");
                 exit(1);
             }
-
-            // allocate memory for new string
-            newString = (char *)malloc(sizeof(char));
-            if (newString == NULL)
-            {
-                fprintf(stderr, "Memory allocation error");
-                exit(1);
-            }
-
-            // updates growing string
-            newString[c] = newChar;
-            strArray[s] = newString;
-            c++;
-
             addNewString = false;
         }
+
+        // add new char after adjusting pointers and allocating memory
+        temp_string[char_ptr] = current_char;
+        arr[s] = temp_string;
+        char_ptr++;
     }
 
-    // append trailing space to the very end
-    if (s != -1 && strArray[s][c - 1] != ' ')
+    // add trailing space if not present
+    if (s != -1 && arr[s][char_ptr - 1] != ' ')
     {
 
-        newString = (char *)realloc(newString, (c + 1) * sizeof(char));
-        newString[c] = ' ';
-        strArray[s] = newString;
+        temp_string = (char *)realloc(temp_string, (char_ptr + 1) * sizeof(char));
+        if (temp_string == NULL)
+        {
+            fprintf(stderr, "Memory allocation error");
+            exit(1);
+        }
+        temp_string[char_ptr] = ' ';
+        arr[s] = temp_string;
     }
 
     // use frobcomp to sort array of strings
-    qsort(strArray, s + 1, sizeof(char *), cmp);
+    qsort(arr, s + 1, sizeof(char *), cmp);
 
-    // print characters to stdout
-    int i;
-    for (i = 0; i < s + 1; i++)
+    // print to stdout
+    int i = 0;
+    while (i < s + 1)
     {
 
         int j = 0;
         while (true)
         {
-
-            in[0] = strArray[i][j];
-
-            // print character by character and catch any errors
-            if (write(1, in, 1) < 0)
+            input[0] = arr[i][j];
+            if (write(1, input, 1) < 0)
             {
-                write(2, "Error outputting characters.\n", 29);
+                fprintf(stderr, "Unable to write");
                 exit(1);
             }
-
-            // skip to the next string if space byte is detected
-            if (strArray[i][j] == ' ')
+            // if space then move to next line
+            if (arr[i][j] == ' ')
             {
                 break;
             }
@@ -285,8 +258,9 @@ int main(int argc, const char *argv[])
 
         if (!S_ISREG(buf.st_mode))
         {
-            free(strArray[i]);
+            free(arr[i]);
         }
+        i++;
     }
 
     if (S_ISREG(buf.st_mode))
@@ -294,7 +268,7 @@ int main(int argc, const char *argv[])
         free(regFile);
     }
 
-    free(strArray);
+    free(arr);
 
     exit(0);
 }
