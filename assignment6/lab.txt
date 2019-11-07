@@ -1,11 +1,3 @@
-Compile, build and run the program simpgmp.c in C on the SEASnet GNU/Linux servers. Since it uses GMP you will need to use the linker flag -lgmp to build this program.
-Use the program to compute 2**24 (i.e., 224, or 2 to the 24th power) and 2**(2**24); verify that the latter number has 5,050,446 decimal digits, starts with "1818" and ends with "7536".
-Use the ldd command to see which dynamic libraries your simple program uses.
-Use the strace command to see which system calls your simple program makes. Which of these calls are related to dynamic linking and what is the relationship?
-Suppose your student ID is the 9-digit number nnnnnnnnn. On a SEASnet GNU/Linux server, run the shell command “ls /usr/bin | awk '(NR-nnnnnnnnn)%251 == 0'” to get a list of nine or so commands to investigate.
-Invoke ldd on each command in your list. If there are error messages, investigate why they're occurring.
-Get a sorted list of every dynamic library that is used by any of the commands on your list (omitting duplicates from your list).
-
 1.  wget https://web.cs.ucla.edu/classes/fall19/cs35L/assign/simpgmp.c
         Grab the simpgmp source code
     gcc -lgmp simpgmp.c -o simpgmp
@@ -68,15 +60,15 @@ Get a sorted list of every dynamic library that is used by any of the commands o
         sopranocmd
         vino-passwd
 
-6.   ldd /usr/bin/autoconf                                                                                                          re
+6.   ldd /usr/bin/autoconf                       
         not a dynamic executable
-     ldd /usr/bin/db43_recover                                                                                                          re
+     ldd /usr/bin/db43_recover                                                  
         linux-vdso.so.1 =>  (0x00007fffd7adf000)
         libdb-4.3.so => /lib64/libdb-4.3.so (0x0000003c72800000)
         libpthread.so.0 => /lib64/libpthread.so.0 (0x0000003c72c00000)
         libc.so.6 => /lib64/libc.so.6 (0x0000003c72400000)
         /lib64/ld-linux-x86-64.so.2 (0x0000558c3579c000)
-     ldd /usr/bin/foomatic-configu                                                                                                             re
+     ldd /usr/bin/foomatic-configure
         not a dynamic executable
      ldd /usr/bin/gsnd
         not a dynamic executable
@@ -87,12 +79,12 @@ Get a sorted list of every dynamic library that is used by any of the commands o
         libdl.so.2 => /lib64/libdl.so.2 (0x0000003c73000000)
         libc.so.6 => /lib64/libc.so.6 (0x0000003c72400000)
         /lib64/ld-linux-x86-64.so.2 (0x000055a8c8480000)
-     ldd /usr/bin/libgnutls-extra-                                                                                                             config
+     ldd /usr/bin/libgnutls-extra-config
         not a dynamic executable
      ldd /usr/bin/mysqltest
         linux-vdso.so.1 =>  (0x00007ffdbff28000)
         libpthread.so.0 => /lib64/libpthread.so.0 (0x0000003c72c00000)
-        libmysqlclient_r.so.16 => /usr/lib64/mysql/libmysqlclient_r.so.16 (0x000                                                                                                             0003829000000)
+        libmysqlclient_r.so.16 => /usr/lib64/mysql/libmysqlclient_r.so.16 (0x0000003829000000)
         libcrypt.so.1 => /lib64/libcrypt.so.1 (0x0000003c81000000)
         libnsl.so.1 => /lib64/libnsl.so.1 (0x0000003c81800000)
         libssl.so.10 => /usr/lib64/libssl.so.10 (0x0000003829800000)
@@ -164,11 +156,11 @@ Get a sorted list of every dynamic library that is used by any of the commands o
         libattr.so.1 => /lib64/libattr.so.1 (0x0000003c81400000)
      ldd /usr/bin/sopranocmd
         linux-vdso.so.1 =>  (0x00007fff27178000)
-        libsopranoclient.so.1 => /usr/lib64/libsopranoclient.so.1 (0x0000003830e                                                                                                             00000)
+        libsopranoclient.so.1 => /usr/lib64/libsopranoclient.so.1 (0x0000003830e00000)
         libQtCore.so.4 => /usr/lib64/libQtCore.so.4 (0x0000003c7a400000)
         libpthread.so.0 => /lib64/libpthread.so.0 (0x0000003c72c00000)
         libsoprano.so.4 => /usr/lib64/libsoprano.so.4 (0x0000003c8e600000)
-        libsopranoindex.so.1 => /usr/lib64/libsopranoindex.so.1 (0x0000003c75000                                                                                                             000)
+        libsopranoindex.so.1 => /usr/lib64/libsopranoindex.so.1 (0x0000003c75000000)
         libQtNetwork.so.4 => /usr/lib64/libQtNetwork.so.4 (0x0000003829c00000)
         libQtXml.so.4 => /usr/lib64/libQtXml.so.4 (0x0000003c79800000)
         libQtDBus.so.4 => /usr/lib64/libQtDBus.so.4 (0x000000382a000000)
@@ -198,7 +190,7 @@ Get a sorted list of every dynamic library that is used by any of the commands o
         linux-vdso.so.1 =>  (0x00007ffc813f9000)
         libgconf-2.so.4 => /usr/lib64/libgconf-2.so.4 (0x000000382a000000)
         libgobject-2.0.so.0 => /lib64/libgobject-2.0.so.0 (0x0000003c74c00000)
-        libgnome-keyring.so.0 => /usr/lib64/libgnome-keyring.so.0 (0x000000382ac                                                                                                             00000)
+        libgnome-keyring.so.0 => /usr/lib64/libgnome-keyring.so.0 (0x000000382ac00000)
         libglib-2.0.so.0 => /lib64/libglib-2.0.so.0 (0x0000003c73c00000)
         libpthread.so.0 => /lib64/libpthread.so.0 (0x0000003c72c00000)
         libc.so.6 => /lib64/libc.so.6 (0x0000003c72400000)

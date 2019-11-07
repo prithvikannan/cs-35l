@@ -8,7 +8,7 @@
 static FILE *urandstream;
 
 /* Initialize the software rand64 implementation.  */
-static void
+__attribute__((constructor)) static void
 software_rand64_init(void)
 {
     urandstream = fopen("/dev/urandom", "r");
@@ -27,13 +27,13 @@ software_rand64(void)
 }
 
 /* Finalize the software rand64 implementation.  */
-static void
+__attribute__((destructor)) static void
 software_rand64_fini(void)
 {
     fclose(urandstream);
 }
 
-extern static unsigned long long rand64(void)
+extern unsigned long long rand64(void)
 {
-    return software_rand64()
+    return software_rand64();
 }

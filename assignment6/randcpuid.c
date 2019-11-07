@@ -1,4 +1,4 @@
-#include "randcpuid.c"
+#include "randcpuid.h"
 #include <cpuid.h>
 
 /* Description of the current CPU.  */
@@ -20,7 +20,7 @@ cpuid(unsigned int leaf, unsigned int subleaf)
 }
 
 /* Return true if the CPU supports the RDRAND instruction.  */
-extern static _Bool
+extern _Bool
 rdrand_supported(void)
 {
     struct cpuid extended = cpuid(1, 0);

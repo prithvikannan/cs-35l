@@ -11,6 +11,6 @@ hardware_rand64 (void)
   return x;
 }
 
-extern static unsigned long long rand64 (void) {
-    return hardware_rand64()
+extern unsigned long long rand64 (void) {
+    return hardware_rand64();
 }
