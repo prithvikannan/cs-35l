@@ -18,8 +18,20 @@ int frobcmp(char const *a, char const *b)
         while (*a != ' ' && *b != ' ')
         {
             // unfrobnicate a single byte
-            char a_i = *a ^ 42;
-            char b_i = *b ^ 42;
+
+            char a_i;
+            char b_i;
+
+            if (isF)
+            {
+                a_i = toupper((unsigned char)(*a ^ 42));
+                b_i = toupper((unsigned char)(*b ^ 42));
+            }
+            else
+            {
+                a_i = *a ^ 42;
+                b_i = *b ^ 42;
+            }
 
             // compare a and b and check which ends first
             if (a_i < b_i || *a == ' ')
