@@ -68,41 +68,28 @@ Get a sorted list of every dynamic library that is used by any of the commands o
         sopranocmd
         vino-passwd
 
-6.  ldd /usr/bin/autoconf
-    ldd /usr/bin/db43_recover
-    ldd /usr/bin/foomatic-configure
-    ldd /usr/bin/gsnd
-    ldd /usr/bin/jdb
-    ldd /usr/bin/libgnutls-extra-config
-    ldd /usr/bin/mysqltest
-    ldd /usr/bin/pbmtextps
-    ldd /usr/bin/pnmtopalm
-    ldd /usr/bin/reporter-mailx
-    ldd /usr/bin/sopranocmd
-    ldd /usr/bin/vino-passwd
-    
-[prithvik@lnxsrv04 ~/Documents/cs35l/assign6]$ ldd /usr/bin/autoconf
+6.   ldd /usr/bin/autoconf                                                                                                          re
         not a dynamic executable
-[prithvik@lnxsrv04 ~/Documents/cs35l/assign6]$     ldd /usr/bin/db43_recover
+     ldd /usr/bin/db43_recover                                                                                                          re
         linux-vdso.so.1 =>  (0x00007fffd7adf000)
         libdb-4.3.so => /lib64/libdb-4.3.so (0x0000003c72800000)
         libpthread.so.0 => /lib64/libpthread.so.0 (0x0000003c72c00000)
         libc.so.6 => /lib64/libc.so.6 (0x0000003c72400000)
         /lib64/ld-linux-x86-64.so.2 (0x0000558c3579c000)
-[prithvik@lnxsrv04 ~/Documents/cs35l/assign6]$     ldd /usr/bin/foomatic-configu                                                                                                             re
+     ldd /usr/bin/foomatic-configu                                                                                                             re
         not a dynamic executable
-[prithvik@lnxsrv04 ~/Documents/cs35l/assign6]$     ldd /usr/bin/gsnd
+     ldd /usr/bin/gsnd
         not a dynamic executable
-[prithvik@lnxsrv04 ~/Documents/cs35l/assign6]$     ldd /usr/bin/jdb
+     ldd /usr/bin/jdb
         linux-vdso.so.1 =>  (0x00007ffca8fe4000)
         libpthread.so.0 => /lib64/libpthread.so.0 (0x0000003c72c00000)
         libjli.so => not found
         libdl.so.2 => /lib64/libdl.so.2 (0x0000003c73000000)
         libc.so.6 => /lib64/libc.so.6 (0x0000003c72400000)
         /lib64/ld-linux-x86-64.so.2 (0x000055a8c8480000)
-[prithvik@lnxsrv04 ~/Documents/cs35l/assign6]$     ldd /usr/bin/libgnutls-extra-                                                                                                             config
+     ldd /usr/bin/libgnutls-extra-                                                                                                             config
         not a dynamic executable
-[prithvik@lnxsrv04 ~/Documents/cs35l/assign6]$     ldd /usr/bin/mysqltest
+     ldd /usr/bin/mysqltest
         linux-vdso.so.1 =>  (0x00007ffdbff28000)
         libpthread.so.0 => /lib64/libpthread.so.0 (0x0000003c72c00000)
         libmysqlclient_r.so.16 => /usr/lib64/mysql/libmysqlclient_r.so.16 (0x000                                                                                                             0003829000000)
@@ -126,19 +113,19 @@ Get a sorted list of every dynamic library that is used by any of the commands o
         libkeyutils.so.1 => /lib64/libkeyutils.so.1 (0x0000003c7ec00000)
         libresolv.so.2 => /lib64/libresolv.so.2 (0x0000003c74400000)
         libselinux.so.1 => /lib64/libselinux.so.1 (0x0000003c74000000)
-[prithvik@lnxsrv04 ~/Documents/cs35l/assign6]$     ldd /usr/bin/pbmtextps
+     ldd /usr/bin/pbmtextps
         linux-vdso.so.1 =>  (0x00007ffe827ca000)
         libm.so.6 => /lib64/libm.so.6 (0x0000003c72800000)
         libnetpbm.so.10 => /usr/lib64/libnetpbm.so.10 (0x0000003c72c00000)
         libc.so.6 => /lib64/libc.so.6 (0x0000003c72400000)
         /lib64/ld-linux-x86-64.so.2 (0x000055a0c7e91000)
-[prithvik@lnxsrv04 ~/Documents/cs35l/assign6]$     ldd /usr/bin/pnmtopalm
+     ldd /usr/bin/pnmtopalm
         linux-vdso.so.1 =>  (0x00007ffc36aa5000)
         libnetpbm.so.10 => /usr/lib64/libnetpbm.so.10 (0x0000003c72c00000)
         libm.so.6 => /lib64/libm.so.6 (0x0000003c72800000)
         libc.so.6 => /lib64/libc.so.6 (0x0000003c72400000)
         /lib64/ld-linux-x86-64.so.2 (0x000055d86f053000)
-[prithvik@lnxsrv04 ~/Documents/cs35l/assign6]$     ldd /usr/bin/reporter-mailx
+     ldd /usr/bin/reporter-mailx
         linux-vdso.so.1 =>  (0x00007ffe177cb000)
         libreport.so.0 => /usr/lib64/libreport.so.0 (0x0000003c84800000)
         libtar.so.1 => /usr/lib64/libtar.so.1 (0x0000003c83c00000)
@@ -175,7 +162,7 @@ Get a sorted list of every dynamic library that is used by any of the commands o
         libplds4.so => /lib64/libplds4.so (0x0000003c82800000)
         libnspr4.so => /lib64/libnspr4.so (0x0000003c82400000)
         libattr.so.1 => /lib64/libattr.so.1 (0x0000003c81400000)
-[prithvik@lnxsrv04 ~/Documents/cs35l/assign6]$     ldd /usr/bin/sopranocmd
+     ldd /usr/bin/sopranocmd
         linux-vdso.so.1 =>  (0x00007fff27178000)
         libsopranoclient.so.1 => /usr/lib64/libsopranoclient.so.1 (0x0000003830e                                                                                                             00000)
         libQtCore.so.4 => /usr/lib64/libQtCore.so.4 (0x0000003c7a400000)
@@ -207,7 +194,7 @@ Get a sorted list of every dynamic library that is used by any of the commands o
         libkeyutils.so.1 => /lib64/libkeyutils.so.1 (0x0000003c7ec00000)
         libresolv.so.2 => /lib64/libresolv.so.2 (0x0000003c74400000)
         libselinux.so.1 => /lib64/libselinux.so.1 (0x0000003c74000000)
-[prithvik@lnxsrv04 ~/Documents/cs35l/assign6]$     ldd /usr/bin/vino-passwd
+     ldd /usr/bin/vino-passwd
         linux-vdso.so.1 =>  (0x00007ffc813f9000)
         libgconf-2.so.4 => /usr/lib64/libgconf-2.so.4 (0x000000382a000000)
         libgobject-2.0.so.0 => /lib64/libgobject-2.0.so.0 (0x0000003c74c00000)
@@ -223,9 +210,138 @@ Get a sorted list of every dynamic library that is used by any of the commands o
         /lib64/ld-linux-x86-64.so.2 (0x000055dae8f03000)
         libdl.so.2 => /lib64/libdl.so.2 (0x0000003c73000000)
 
+        The error message that shows up for autoconf is that "not a dynamic 
+        executable" which means [TODO].
 
 
+7.      for i in $(ls /usr/bin | awk 'NR%101==405110096%101')
+        do
+                ldd '/usr/bin/'$i
+        done |
+        grep o | 
+        sed "s/=>.*//g" |
+        sed "s/[(][^)]*[)]//g" |
+        sort -u 
 
-7. https://unix.stackexchange.com/questions/194061/how-to-perform-grep-onto-the-output-of-ldd-properly
-
+        /lib64/ld-linux-x86-64.so.2
+        libacl.so.1
+        libapr-1.so.0
+        libaprutil-1.so.0
+        libattr.so.1
+        libaudit.so.1
+        libaugeas.so.0
+        libavahi-client.so.3
+        libavahi-common.so.3
+        libblkid.so.1
+        libbz2.so.1
+        libcap-ng.so.0
+        libcap.so.2
+        libcolordprivate.so.2
+        libcolord.so.2
+        libcom_err.so.2
+        libcroco-0.6.so.3
+        libcrypto.so.10
+        libcrypt.so.1
+        libc.so.6
+        libdb-5.3.so
+        libdbus-1.so.3
+        libdevmapper.so.1.02
+        libdl.so.2
+        libdw.so.1
+        libelf.so.1
+        libexpat.so.1
+        libfa.so.1
+        libffi.so.6
+        libfreebl3.so
+        libgcc_s.so.1
+        libgcrypt.so.11
+        libgettextlib-0.19.8.1.so
+        libgettextsrc-0.19.8.1.so
+        libgio-2.0.so.0
+        libglib-2.0.so.0
+        libgmodule-2.0.so.0
+        libgobject-2.0.so.0
+        libgomp.so.1
+        libgpg-error.so.0
+        libgssapi_krb5.so.2
+        libgthread-2.0.so.0
+        libICE.so.6
+        libiodbc.so.2
+        libjson-c.so.2
+        libk5crypto.so.3
+        libkeyutils.so.1
+        libkrb5.so.3
+        libkrb5support.so.0
+        liblcms2.so.2
+        libldns.so.1
+        liblua-5.1.so
+        liblz4.so.1
+        liblzma.so.5
+        liblzo2.so.2
+        libmagic.so.1
+        libmount.so.1
+        libm.so.6
+        libncurses.so.5
+        libncursesw.so.5
+        libnetpbm.so.11
+        libnl-3.so.200
+        libnl-cli-3.so.200
+        libnl-genl-3.so.200
+        libnl-idiag-3.so.200
+        libnl-nf-3.so.200
+        libnl-route-3.so.200
+        libnspr4.so
+        libnss3.so
+        libnssutil3.so
+        libpcap.so.1
+        libpcp.so.3
+        libpcre.so.1
+        libplc4.so
+        libplds4.so
+        libpopt.so.0
+        libprocps.so.4
+        libpthread.so.0
+        libQtCore.so.4
+        libQtXml.so.4
+        libreport.so.0
+        libresolv.so.2
+        librpmio.so.3
+        librpm.so.3
+        librt.so.1
+        libsasl2.so.3
+        libsatyr.so.3
+        libsctp.so.1
+        libselinux.so.1
+        libsepol.so.1
+        libsmime3.so
+        libSM.so.6
+        libsnappy.so.1
+        libsqlite3.so.0
+        libssl3.so
+        libstdc++.so.6
+        libsvn_delta-1.so.0
+        libsvn_fs-1.so.0
+        libsvn_fs_base-1.so.0
+        libsvn_fs_fs-1.so.0
+        libsvn_fs_util-1.so.0
+        libsvn_repos-1.so.0
+        libsvn_subr-1.so.0
+        libsystemd.so.0
+        libtar.so.1
+        libtinfo.so.5
+        libudev.so.1
+        libunistring.so.0
+        libuuid.so.1
+        libX11.so.6
+        libXau.so.6
+        libXaw.so.7
+        libxcb.so.1
+        libXext.so.6
+        libxml2.so.2
+        libXmu.so.6
+        libXpm.so.4
+        libXt.so.6
+        libz.so.1
+        linux-vdso.so.1
+        not a dynamic executable
 
