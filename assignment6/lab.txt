@@ -211,7 +211,8 @@ Get a sorted list of every dynamic library that is used by any of the commands o
         libdl.so.2 => /lib64/libdl.so.2 (0x0000003c73000000)
 
         The error message that shows up for autoconf is that "not a dynamic 
-        executable" which means [TODO].
+        executable" which means that the loader for the executable is not
+        available to the program.
 
 
 7.      for i in $(ls /usr/bin | awk 'NR%101==405110096%101')
