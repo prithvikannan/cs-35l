@@ -1,0 +1,231 @@
+Compile, build and run the program simpgmp.c in C on the SEASnet GNU/Linux servers. Since it uses GMP you will need to use the linker flag -lgmp to build this program.
+Use the program to compute 2**24 (i.e., 224, or 2 to the 24th power) and 2**(2**24); verify that the latter number has 5,050,446 decimal digits, starts with "1818" and ends with "7536".
+Use the ldd command to see which dynamic libraries your simple program uses.
+Use the strace command to see which system calls your simple program makes. Which of these calls are related to dynamic linking and what is the relationship?
+Suppose your student ID is the 9-digit number nnnnnnnnn. On a SEASnet GNU/Linux server, run the shell command “ls /usr/bin | awk '(NR-nnnnnnnnn)%251 == 0'” to get a list of nine or so commands to investigate.
+Invoke ldd on each command in your list. If there are error messages, investigate why they're occurring.
+Get a sorted list of every dynamic library that is used by any of the commands on your list (omitting duplicates from your list).
+
+1.  wget https://web.cs.ucla.edu/classes/fall19/cs35L/assign/simpgmp.c
+        Grab the simpgmp source code
+    gcc -lgmp simpgmp.c -o simpgmp
+        Compile simpgmp using the -lgmp flag
+
+2.  ./simpgmp 24
+        Outputs "16777216" which is 2**24
+    ./simpgmp 16777216
+        Outputs an enormous file that ends with "884097536" which matches the 
+        question.
+    man cut
+        Discovered how to print only 10 characters
+    ./simpgmp 16777216 | cut -c-10
+        Shows the first 10 characters are "1818585298"
+    man wc 
+        Found the -m flag counts characters
+    ./simpgmp 16777216 | wc -m
+        Outputs 5050446 meaning there are that many digits in the answer, 
+        which matches the question.
+
+3.  man ldd
+        Looked at documentation for ldd
+    ldd ./simpgmp
+        linux-vdso.so.1 =>  (0x00007ffd7cd91000)
+        libgmp.so.3 => /usr/lib64/libgmp.so.3 (0x00000037f5600000)
+        libc.so.6 => /lib64/libc.so.6 (0x00000037f4200000)
+        /lib64/ld-linux-x86-64.so.2 (0x000055e8293dc000)
+
+4.  man strace
+        Looked at documentation for strace
+    strace -c ./simpgmp 24
+        % time     seconds  usecs/call     calls    errors syscall
+        ------ ----------- ----------- --------- --------- ----------------
+        0.00    0.000000           0         2           read
+        0.00    0.000000           0         1           write
+        0.00    0.000000           0         3           open
+        0.00    0.000000           0         3           close
+        0.00    0.000000           0         4           fstat
+        0.00    0.000000           0        11           mmap
+        0.00    0.000000           0         4           mprotect
+        0.00    0.000000           0         1           munmap
+        0.00    0.000000           0         3           brk
+        0.00    0.000000           0         1         1 access
+        0.00    0.000000           0         1           execve
+        0.00    0.000000           0         1           arch_prctl
+        ------ ----------- ----------- --------- --------- ----------------
+        100.00    0.000000                    35         1 total
+
+5.  ls /usr/bin | awk '(NR-405110096)%251 == 0'
+        autoconf
+        db43_recover
+        foomatic-configure
+        gsnd
+        jdb
+        libgnutls-extra-config
+        mysqltest
+        pbmtextps
+        pnmtopalm
+        reporter-mailx
+        sopranocmd
+        vino-passwd
+
+6.  ldd /usr/bin/autoconf
+    ldd /usr/bin/db43_recover
+    ldd /usr/bin/foomatic-configure
+    ldd /usr/bin/gsnd
+    ldd /usr/bin/jdb
+    ldd /usr/bin/libgnutls-extra-config
+    ldd /usr/bin/mysqltest
+    ldd /usr/bin/pbmtextps
+    ldd /usr/bin/pnmtopalm
+    ldd /usr/bin/reporter-mailx
+    ldd /usr/bin/sopranocmd
+    ldd /usr/bin/vino-passwd
+    
+[prithvik@lnxsrv04 ~/Documents/cs35l/assign6]$ ldd /usr/bin/autoconf
+        not a dynamic executable
+[prithvik@lnxsrv04 ~/Documents/cs35l/assign6]$     ldd /usr/bin/db43_recover
+        linux-vdso.so.1 =>  (0x00007fffd7adf000)
+        libdb-4.3.so => /lib64/libdb-4.3.so (0x0000003c72800000)
+        libpthread.so.0 => /lib64/libpthread.so.0 (0x0000003c72c00000)
+        libc.so.6 => /lib64/libc.so.6 (0x0000003c72400000)
+        /lib64/ld-linux-x86-64.so.2 (0x0000558c3579c000)
+[prithvik@lnxsrv04 ~/Documents/cs35l/assign6]$     ldd /usr/bin/foomatic-configu                                                                                                             re
+        not a dynamic executable
+[prithvik@lnxsrv04 ~/Documents/cs35l/assign6]$     ldd /usr/bin/gsnd
+        not a dynamic executable
+[prithvik@lnxsrv04 ~/Documents/cs35l/assign6]$     ldd /usr/bin/jdb
+        linux-vdso.so.1 =>  (0x00007ffca8fe4000)
+        libpthread.so.0 => /lib64/libpthread.so.0 (0x0000003c72c00000)
+        libjli.so => not found
+        libdl.so.2 => /lib64/libdl.so.2 (0x0000003c73000000)
+        libc.so.6 => /lib64/libc.so.6 (0x0000003c72400000)
+        /lib64/ld-linux-x86-64.so.2 (0x000055a8c8480000)
+[prithvik@lnxsrv04 ~/Documents/cs35l/assign6]$     ldd /usr/bin/libgnutls-extra-                                                                                                             config
+        not a dynamic executable
+[prithvik@lnxsrv04 ~/Documents/cs35l/assign6]$     ldd /usr/bin/mysqltest
+        linux-vdso.so.1 =>  (0x00007ffdbff28000)
+        libpthread.so.0 => /lib64/libpthread.so.0 (0x0000003c72c00000)
+        libmysqlclient_r.so.16 => /usr/lib64/mysql/libmysqlclient_r.so.16 (0x000                                                                                                             0003829000000)
+        libcrypt.so.1 => /lib64/libcrypt.so.1 (0x0000003c81000000)
+        libnsl.so.1 => /lib64/libnsl.so.1 (0x0000003c81800000)
+        libssl.so.10 => /usr/lib64/libssl.so.10 (0x0000003829800000)
+        libcrypto.so.10 => /usr/lib64/libcrypto.so.10 (0x0000003829400000)
+        libz.so.1 => /lib64/libz.so.1 (0x0000003c73400000)
+        libstdc++.so.6 => /usr/lib64/libstdc++.so.6 (0x0000003c79400000)
+        libm.so.6 => /lib64/libm.so.6 (0x0000003c72800000)
+        libgcc_s.so.1 => /lib64/libgcc_s.so.1 (0x0000003c78c00000)
+        libc.so.6 => /lib64/libc.so.6 (0x0000003c72400000)
+        /lib64/ld-linux-x86-64.so.2 (0x000055998fc20000)
+        libfreebl3.so => /lib64/libfreebl3.so (0x0000003c80800000)
+        libgssapi_krb5.so.2 => /lib64/libgssapi_krb5.so.2 (0x0000003c7f400000)
+        libkrb5.so.3 => /lib64/libkrb5.so.3 (0x0000003c7e400000)
+        libcom_err.so.2 => /lib64/libcom_err.so.2 (0x0000003c7dc00000)
+        libk5crypto.so.3 => /lib64/libk5crypto.so.3 (0x0000003c7e800000)
+        libdl.so.2 => /lib64/libdl.so.2 (0x0000003c73000000)
+        libkrb5support.so.0 => /lib64/libkrb5support.so.0 (0x0000003c7e000000)
+        libkeyutils.so.1 => /lib64/libkeyutils.so.1 (0x0000003c7ec00000)
+        libresolv.so.2 => /lib64/libresolv.so.2 (0x0000003c74400000)
+        libselinux.so.1 => /lib64/libselinux.so.1 (0x0000003c74000000)
+[prithvik@lnxsrv04 ~/Documents/cs35l/assign6]$     ldd /usr/bin/pbmtextps
+        linux-vdso.so.1 =>  (0x00007ffe827ca000)
+        libm.so.6 => /lib64/libm.so.6 (0x0000003c72800000)
+        libnetpbm.so.10 => /usr/lib64/libnetpbm.so.10 (0x0000003c72c00000)
+        libc.so.6 => /lib64/libc.so.6 (0x0000003c72400000)
+        /lib64/ld-linux-x86-64.so.2 (0x000055a0c7e91000)
+[prithvik@lnxsrv04 ~/Documents/cs35l/assign6]$     ldd /usr/bin/pnmtopalm
+        linux-vdso.so.1 =>  (0x00007ffc36aa5000)
+        libnetpbm.so.10 => /usr/lib64/libnetpbm.so.10 (0x0000003c72c00000)
+        libm.so.6 => /lib64/libm.so.6 (0x0000003c72800000)
+        libc.so.6 => /lib64/libc.so.6 (0x0000003c72400000)
+        /lib64/ld-linux-x86-64.so.2 (0x000055d86f053000)
+[prithvik@lnxsrv04 ~/Documents/cs35l/assign6]$     ldd /usr/bin/reporter-mailx
+        linux-vdso.so.1 =>  (0x00007ffe177cb000)
+        libreport.so.0 => /usr/lib64/libreport.so.0 (0x0000003c84800000)
+        libtar.so.1 => /usr/lib64/libtar.so.1 (0x0000003c83c00000)
+        libjson-c.so.2 => /lib64/libjson-c.so.2 (0x0000003c86200000)
+        libglib-2.0.so.0 => /lib64/libglib-2.0.so.0 (0x0000003c73c00000)
+        libaugeas.so.0 => /usr/lib64/libaugeas.so.0 (0x0000003c84c00000)
+        libsatyr.so.3 => /usr/lib64/libsatyr.so.3 (0x0000003c85a00000)
+        libc.so.6 => /lib64/libc.so.6 (0x0000003c72400000)
+        librt.so.1 => /lib64/librt.so.1 (0x0000003c73800000)
+        libfa.so.1 => /usr/lib64/libfa.so.1 (0x0000003c83400000)
+        libxml2.so.2 => /usr/lib64/libxml2.so.2 (0x0000003c7f000000)
+        libselinux.so.1 => /lib64/libselinux.so.1 (0x0000003c74000000)
+        libstdc++.so.6 => /usr/lib64/libstdc++.so.6 (0x0000003c79400000)
+        librpm.so.1 => /usr/lib64/librpm.so.1 (0x0000003c81800000)
+        libdl.so.2 => /lib64/libdl.so.2 (0x0000003c73000000)
+        libdw.so.1 => /usr/lib64/libdw.so.1 (0x0000003c82c00000)
+        libelf.so.1 => /usr/lib64/libelf.so.1 (0x0000003c79c00000)
+        libz.so.1 => /lib64/libz.so.1 (0x0000003c73400000)
+        /lib64/ld-linux-x86-64.so.2 (0x000055e50be84000)
+        libpthread.so.0 => /lib64/libpthread.so.0 (0x0000003c72c00000)
+        libm.so.6 => /lib64/libm.so.6 (0x0000003c72800000)
+        libgcc_s.so.1 => /lib64/libgcc_s.so.1 (0x0000003c78c00000)
+        librpmio.so.1 => /usr/lib64/librpmio.so.1 (0x0000003c80400000)
+        libnss3.so => /usr/lib64/libnss3.so (0x0000003c84000000)
+        libbz2.so.1 => /lib64/libbz2.so.1 (0x0000003c7fc00000)
+        liblzma.so.0 => /usr/lib64/liblzma.so.0 (0x0000003c80000000)
+        liblua-5.1.so => /usr/lib64/liblua-5.1.so (0x0000003c83000000)
+        libpopt.so.0 => /lib64/libpopt.so.0 (0x0000003c84400000)
+        libcap.so.2 => /lib64/libcap.so.2 (0x0000003c7cc00000)
+        libacl.so.1 => /lib64/libacl.so.1 (0x0000003c81c00000)
+        libdb-4.7.so => /lib64/libdb-4.7.so (0x0000003c7b800000)
+        libnssutil3.so => /usr/lib64/libnssutil3.so (0x0000003c83800000)
+        libplc4.so => /lib64/libplc4.so (0x0000003c82000000)
+        libplds4.so => /lib64/libplds4.so (0x0000003c82800000)
+        libnspr4.so => /lib64/libnspr4.so (0x0000003c82400000)
+        libattr.so.1 => /lib64/libattr.so.1 (0x0000003c81400000)
+[prithvik@lnxsrv04 ~/Documents/cs35l/assign6]$     ldd /usr/bin/sopranocmd
+        linux-vdso.so.1 =>  (0x00007fff27178000)
+        libsopranoclient.so.1 => /usr/lib64/libsopranoclient.so.1 (0x0000003830e                                                                                                             00000)
+        libQtCore.so.4 => /usr/lib64/libQtCore.so.4 (0x0000003c7a400000)
+        libpthread.so.0 => /lib64/libpthread.so.0 (0x0000003c72c00000)
+        libsoprano.so.4 => /usr/lib64/libsoprano.so.4 (0x0000003c8e600000)
+        libsopranoindex.so.1 => /usr/lib64/libsopranoindex.so.1 (0x0000003c75000                                                                                                             000)
+        libQtNetwork.so.4 => /usr/lib64/libQtNetwork.so.4 (0x0000003829c00000)
+        libQtXml.so.4 => /usr/lib64/libQtXml.so.4 (0x0000003c79800000)
+        libQtDBus.so.4 => /usr/lib64/libQtDBus.so.4 (0x000000382a000000)
+        libclucene.so.0 => /usr/lib64/libclucene.so.0 (0x0000003c74c00000)
+        libstdc++.so.6 => /usr/lib64/libstdc++.so.6 (0x0000003c79400000)
+        libm.so.6 => /lib64/libm.so.6 (0x0000003c72800000)
+        libgcc_s.so.1 => /lib64/libgcc_s.so.1 (0x0000003c78c00000)
+        libc.so.6 => /lib64/libc.so.6 (0x0000003c72400000)
+        libz.so.1 => /lib64/libz.so.1 (0x0000003c73400000)
+        libdl.so.2 => /lib64/libdl.so.2 (0x0000003c73000000)
+        libgthread-2.0.so.0 => /lib64/libgthread-2.0.so.0 (0x0000003c74800000)
+        librt.so.1 => /lib64/librt.so.1 (0x0000003c73800000)
+        libglib-2.0.so.0 => /lib64/libglib-2.0.so.0 (0x0000003c73c00000)
+        /lib64/ld-linux-x86-64.so.2 (0x000055ad8c592000)
+        libssl.so.10 => /usr/lib64/libssl.so.10 (0x0000003829800000)
+        libcrypto.so.10 => /usr/lib64/libcrypto.so.10 (0x0000003829400000)
+        libdbus-1.so.3 => /lib64/libdbus-1.so.3 (0x0000003829000000)
+        libgssapi_krb5.so.2 => /lib64/libgssapi_krb5.so.2 (0x0000003c7f400000)
+        libkrb5.so.3 => /lib64/libkrb5.so.3 (0x0000003c7e400000)
+        libcom_err.so.2 => /lib64/libcom_err.so.2 (0x0000003c7dc00000)
+        libk5crypto.so.3 => /lib64/libk5crypto.so.3 (0x0000003c7e800000)
+        libkrb5support.so.0 => /lib64/libkrb5support.so.0 (0x0000003c7e000000)
+        libkeyutils.so.1 => /lib64/libkeyutils.so.1 (0x0000003c7ec00000)
+        libresolv.so.2 => /lib64/libresolv.so.2 (0x0000003c74400000)
+        libselinux.so.1 => /lib64/libselinux.so.1 (0x0000003c74000000)
+[prithvik@lnxsrv04 ~/Documents/cs35l/assign6]$     ldd /usr/bin/vino-passwd
+        linux-vdso.so.1 =>  (0x00007ffc813f9000)
+        libgconf-2.so.4 => /usr/lib64/libgconf-2.so.4 (0x000000382a000000)
+        libgobject-2.0.so.0 => /lib64/libgobject-2.0.so.0 (0x0000003c74c00000)
+        libgnome-keyring.so.0 => /usr/lib64/libgnome-keyring.so.0 (0x000000382ac                                                                                                             00000)
+        libglib-2.0.so.0 => /lib64/libglib-2.0.so.0 (0x0000003c73c00000)
+        libpthread.so.0 => /lib64/libpthread.so.0 (0x0000003c72c00000)
+        libc.so.6 => /lib64/libc.so.6 (0x0000003c72400000)
+        libgmodule-2.0.so.0 => /lib64/libgmodule-2.0.so.0 (0x0000003c79000000)
+        libORBit-2.so.0 => /usr/lib64/libORBit-2.so.0 (0x0000003c83000000)
+        libdbus-1.so.3 => /lib64/libdbus-1.so.3 (0x0000003829000000)
+        libgthread-2.0.so.0 => /lib64/libgthread-2.0.so.0 (0x0000003c74800000)
+        librt.so.1 => /lib64/librt.so.1 (0x0000003c73800000)
+        /lib64/ld-linux-x86-64.so.2 (0x000055dae8f03000)
+        libdl.so.2 => /lib64/libdl.so.2 (0x0000003c73000000)
+
+
+
+
+7. https://unix.stackexchange.com/questions/194061/how-to-perform-grep-onto-the-output-of-ldd-properly
+
+
