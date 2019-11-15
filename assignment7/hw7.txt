@@ -1,0 +1,39 @@
+1.  touch hw7.txt
+        Make a file to record steps
+
+2.  git checkout v3.0 -b quote
+        Checkout version 3.0 into a new branch called quote
+
+3.  patch -p1 < ../quote-3.0-patch.txt
+        Apply patch gives the following output
+        patching file src/cmp.c
+        patching file src/diff.c
+        patching file src/diff3.c
+        patching file src/dir.c
+        patching file src/sdiff.c
+        patching file src/util.c
+
+4.  emacs
+    C-x 4 a 
+        Learned how to use add-change-log-entry-other-window 
+
+5.  emacs quote-3.0-patch.txt
+    C-x 4 a
+        Added the following description for my patch. 
+        2019-11-15  Prithvi Kannan  <prithvik@lnxsrv05.seas.ucla.edu>
+
+                * quote-3.0-patch.txt: This patches updates character string constanst in .c files to match an update where the qu\
+        ote style changes from `sample' or ``sample" to 'sample' or "sample" respectively.
+
+6.  mv quote-3.0-patch.txt .. 
+        Move the patch file out so it doesn't get committed as well
+    git add .
+    git commit -F ChangeLog
+        Stages all files for commit with the ChangeLog as the commit name
+
+7.  git format-patch -1 --stdout > formatted-patch.txt
+        Created a formatted patch file that wouldn't require by hand fixes
+
+8. 
+
+9.  make distdir
