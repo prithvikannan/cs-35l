@@ -234,6 +234,28 @@
         Makefile:1017: recipe for target 'check-recursive' failed
         make: *** [check-recursive] Error 1
 
-    cvs diff -pu
+    diff . -
+        Outputs diff: cannot compare '-' to a directory
+    diff --help
+        This outputs a large help file explaining the commands of diff, but all
+        of the quotes in the text are the correct style such as the example below
+        FILES are 'FILE1 FILE2' or 'DIR1 DIR2' or 'DIR FILE...' or 'FILE... DIR'.
 
-
+14. cd ..
+    mkdir diffutils-3.0-patch
+    cp -r diffutils/src/*.c ./diffutils-3.0-patch
+        Put source code of modified version in diffutils-3.0-patch
+    git clone https://git.savannah.gnu.org/git/diffutils.git diffutils-original
+    cd diffutils-original
+    git checkout v3.0
+    cd ..
+        Put unmodified version of diffutils in diffutils-original
+    mkdir diffutils-3.0
+    cp -r diffutils-original/src/*.c ./diffutils-3.0
+        Put source code of unmodified version in diffutils-3.0
+    diffutils/src/diff -pru diffutils-3.0 diffutils-3.0-patch > quote-3.0-test.txt
+        Ran implementation of diff
+        
+15. diffutils/src/diff -u quote-3.0-test.txt quote-3.0-patch.txt
+        The files are mostly the same, with the exception of the quote mark 
+        changes as expected.
