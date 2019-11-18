@@ -34,6 +34,37 @@
 7.  git format-patch -1 --stdout > formatted-patch.txt
         Created a formatted patch file that wouldn't require by hand fixes
 
-8. 
+8.      git checkout v3.0 -b quote-partner
+        git am < ../formatted-patch.txt
+        ./bootstrap
+        ./configure
+        make
+        make check
 
-9.  make distdir
+        src/diff . -
+                src/diff: cannot compare `-' to a directory
+        src/diff --help
+
+9.      make distdir
+        cd diffutils-3.0.1-6ce0
+        emacs ChangeLog
+                When I run this command I can see my partner's change.
+
+10.     First I installed XMing and logged into the server using Putty's X11 
+        forwarding setting using these instructions:
+        https://uisapp2.iu.edu/confluence-prd/pages/viewpage.action?pageId=280461906
+        
+        cd ~eggert/src/gnu/emacs
+        gitk 
+                My view of the mergepoint of the newest merge that is not newer
+                than 2015-01-25 is a commit by Joakim Verona at 2015-01-25 at 
+                12:19:27. The merge is titled, "Merge branch 'master' into 
+                xwidget. Within this merge, we can see commits by Paul Eggert, 
+                Stefan Monnier, and Lars Ingebrigtsen.
+
+                This popped open a window where I could see all of the commits 
+                (message, user, timestamp) at the top followed by a panel to 
+                read the ChangeLog and aaaacomments. There is a field for the 
+                SHA1 id for each commit, and a visual description of branches 
+                and merges (diagonal lines). There is also a section to search 
+                forward or reverse for messages within commits.
