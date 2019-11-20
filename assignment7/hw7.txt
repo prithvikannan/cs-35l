@@ -27,9 +27,14 @@
 
 6.  mv quote-3.0-patch.txt .. 
         Move the patch file out so it doesn't get committed as well
-    git add .
+    git add src/cmp.c
+    git add src/diff.c
+    git add src/diff3.c
+    git add src/dir.c
+    git add src/sdiff.c
+    git add src/util.c
     git commit -F ChangeLog
-        Stages all files for commit with the ChangeLog as the commit name
+        Stages files for commit with the ChangeLog as the commit name
 
 7.  git format-patch -1 --stdout > formatted-patch.txt
         Created a formatted patch file that wouldn't require by hand fixes
@@ -68,3 +73,5 @@
                 SHA1 id for each commit, and a visual description of branches 
                 and merges (diagonal lines). There is also a section to search 
                 forward or reverse for messages within commits.
+
+tar czf hw7.tgz git-log.txt git-tags.txt quote-patch.txt quote-3.0-patch.txt formatted-patch.txt
