@@ -1,0 +1,6 @@
+2019-11-19  Prithvi Kannan  <prithvik@lnxsrv10.seas.ucla.edu>
+
+	* quote-3.0-patch.txt: This patches updates character string constanst in .c files to match an update where the qu\
+        ote style changes from `sample' or ``sample" to 'sample' or "sample" respectively.
+
+
