@@ -1,0 +1,75 @@
+beaglebone setup:
+ssh root@192.168.7.2
+
+connmanctl
+enable wifi 
+scan wifi 
+services 
+agent on 
+connect wifi_2cf7f106a0ab_4352333736302d77696669_managed_psk
+    3760ClassNet
+quit
+
+wlan0     Link encap:Ethernet  HWaddr 2c:f7:f1:06:a0:ab
+          inet addr:10.97.85.28  Bcast:10.97.85.255  Mask:255.255.255.0
+          inet6 addr: fe80::2ef7:f1ff:fe06:a0ab/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST DYNAMIC  MTU:1500  Metric:1
+          RX packets:70 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:246 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:13936 (13.6 KiB)  TX bytes:55663 (54.3 KiB)
+sudo apt-get update
+sudo apt-get install xauth
+sudo apt-get install xvfb
+
+nano /etc/ssh/ssh_config
+    had to change to ForwardX11
+nano /etc/ssh/sshd_config
+
+sudo apt-get install firefox-esr-l10n-en-gb 
+
+
+on the server:
+
+ssh-keygen
+    hit enter
+    Generating public/private rsa key pair.
+    Enter file in which to save the key (/root/.ssh/id_rsa):
+    Created directory '/root/.ssh'.
+    Enter passphrase (empty for no passphrase):
+    Enter same passphrase again:
+    Your identification has been saved in /root/.ssh/id_rsa.
+    Your public key has been saved in /root/.ssh/id_rsa.pub.
+    The key fingerprint is:
+    8a:02:4b:31:21:07:e2:c3:b6:0f:b1:5a:e0:b8:01:f3 root@beaglebone
+    The key's randomart image is:
+    +---[RSA 2048]----+
+    |+o.              |
+    |=..              |
+    |+O               |
+    |=+B              |
+    |+*E     S        |
+    |o*o  . .         |
+    |+ ... .          |
+    |   .             |
+    |                 |
+    +-----------------+
+
+sudo passwd harsh
+    set password to harsh
+cd /home/harsh
+sudo mkdir .ssh
+sudo chown -R harsh .ssh
+sudo chmod 700 .ssh
+
+I told my partner, Harsh, to use harsh@10.97.85.28 to log into my beaglebone 
+using the password 'harsh'
+
+on the client:
+
+ssh-keygen
+ssh-copy-id prithvi@_____
+eval $(ssh-agent)
+ssh-add
+ssh harsh@10.97.85.28
+nano testfile.txt
