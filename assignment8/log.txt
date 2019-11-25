@@ -55,6 +55,7 @@ ssh-keygen
     |                 |
     +-----------------+
 
+sudo useradd -d /home/harsh -m harsh
 sudo passwd harsh
     set password to harsh
 cd /home/harsh
@@ -68,8 +69,55 @@ using the password 'harsh'
 on the client:
 
 ssh-keygen
-ssh-copy-id prithvi@_____
+    Your identification has been saved in /root/.ssh/id_rsa.
+    Your public key has been saved in /root/.ssh/id_rsa.pub.
+    The key fingerprint is:
+    14:a1:ec:dd:04:a6:1e:8b:8a:b9:5f:8c:a1:1c:ab:04 root@beaglebone
+    The key's randomart image is:
+    +---[RSA 2048]----+
+    |        =.       |
+    |     . + o       |
+    |      = . .      |
+    |     + = o       |
+    |E.. . + S .      |
+    |o+o=             |
+    |++o o            |
+    |o. .             |
+    |o..              |
+    +-----------------+
+
+ssh-copy-id -i prithvi@10.97.85.36
 eval $(ssh-agent)
 ssh-add
-ssh harsh@10.97.85.28
-nano testfile.txt
+ssh prithvi@10.97.85.36
+nano oooie.txt
+
+
+ssh root@192.168.7.2
+scp root@192.168.7.2:/sys/bus/i2c/devices/0-0050/eeprom ~/Desktop
+
+gpg2 --gen-key
+    gpg: key 86BE3653 marked as ultimately trusted
+    public and secret key created and signed.
+    gpg: checking the trustdb
+    gpg: 3 marginal(s) needed, 1 complete(s) needed, PGP trust model
+    gpg: depth: 0  valid:   2  signed:   0  trust: 0-, 0q, 0n, 0m, 0f, 2u
+    pub   2048R/86BE3653 2019-11-25
+        Key fingerprint = 6C5A 9851 80CE E5B1 95B6  6931 96C2 C939 86BE 3653
+    uid                  Prithvi Kannan (making a key using gpg2) <prithvi.kannan@gmail.com>
+    sub   2048R/AFED4338 2019-11-25
+gpg2 --clearsign eeprom
+gpg2 --detach-sign eeprom
+
+mkdir -m go-rwx .gnupg
+gpg2 --homedir .gnupg --import hw-pubkey.asc
+gpg2 --homedir .gnupg --verify eeprom.sig eeprom
+    200 gpg: Signature made Mon 25 Nov 2019 01:33:09 PM PST using RSA key ID 140714F2
+    < lgpg: Good signature from "Prithvi Kannan (test key) <prithvi.kannan@gmail.com>"
+    gpg: WARNING: This key is not certified with a trusted signature!
+    gpg:          There is no indication that the signature belongs to the owner.
+    Primary key fingerprint: 0468 D47C E605 87D7 AD4C  4DA8 4DB5 769D 1407 14F2
+
+awk '200 < length' log.txt hw.txt
+
+
