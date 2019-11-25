@@ -57,14 +57,18 @@ ssh-keygen
 
 sudo useradd -d /home/harsh -m harsh
 sudo passwd harsh
-    set password to harsh
+    set password to 'harsh'
 cd /home/harsh
 sudo mkdir .ssh
 sudo chown -R harsh .ssh
 sudo chmod 700 .ssh
 
-I told my partner, Harsh, to use harsh@10.97.85.28 to log into my beaglebone 
-using the password 'harsh'
+I thought I was going to be working with Harsh, so I made an account under his 
+name on my beaglebone. However, Harsh was unable to make it to the lab so I 
+ended up working with Anirudh Mani instead. 
+
+I told my partner, Anirudh, to use harsh@10.97.85.28 to log into my beaglebone 
+using the password 'harsh' to first verify that the account worked. 
 
 on the client:
 
@@ -91,12 +95,28 @@ eval $(ssh-agent)
 ssh-add
 ssh prithvi@10.97.85.36
 nano oooie.txt
+    I was able to log into Anirudh's beaglebone using the account he made for
+    me without the password since I had saved the key within the ssh-agent.
+    When I was logged in, I created a file called 'oooie.txt' and wrote the 
+    message 'i got in without a password'. Anirudh could see this message on his
+    beaglebone, so we know it worked.
 
+ssh -X prithvi@10.97.85.36
+    Now I logged back into Anirudh's beaglebone using -X forwarding and I was
+    able to open firefox and see the window appear on my screen. 
+
+HOMEWORK:
 
 ssh root@192.168.7.2
 scp root@192.168.7.2:/sys/bus/i2c/devices/0-0050/eeprom ~/Desktop
+    Ran this command to grab the eeprom file onto my local desktop. Then I moved
+    the eeprom to my linux server. 
 
 gpg2 --gen-key
+    I ran this originally on server 3 but got the entropy bug so after checking 
+    a piazza post where it said how to check the entropy of the system: 
+    cat /proc/sys/kernel/random/entropy_avail, I ended up using server 10. 
+    
     gpg: key 86BE3653 marked as ultimately trusted
     public and secret key created and signed.
     gpg: checking the trustdb
