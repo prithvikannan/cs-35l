@@ -1,0 +1,5 @@
+1.  look for .git in current directory
+    while directory does not equal /
+        look for .git directory 
+    
+      

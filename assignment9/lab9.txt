@@ -1,0 +1,49 @@
+git clone ~eggert/src/gnu/emacs-CS-35L
+
+1.  git ls-files | xargs -d '\n' du -ch
+        There 159M worth of working files in this directory. I ran git ls-files 
+        to fetch all working files in this directory, and then piped the output
+        to du to find the size and produce a total using the -c flag.
+    cd emacs-CS-35L
+    du -h
+        There are 503M total in the emacs-CS-35L folder
+    cd .git
+    du -h 
+        There are 343M total in the .git folder folder
+        largest file is in the folder emacs-CS-35L/.git/objects/pack (343M) 
+        and is called pack-24e56b1749b9320c560213d9045fa6cee42b4174.pack
+    cd .git
+   
+2.  git branch
+    git branch | wc -l
+        There is only 1 local branch, master.
+    git branch -r | wc -l
+        There are 177 branches that are remote.
+
+3.  git remote -v 
+        There is only one remote repository for this repo located at 
+        /u/cs/fac/eggert/src/gnu/emacs-CS-35L
+
+4.  
+
+5.  git rev-list --count HEAD
+        There are 139583 commits on the master branch.
+
+6.  
+    git rev-list --remotes | sort > ../all_commits.txt
+    git rev-list HEAD | sort > ../master_commits.txt
+    comm -12 ../all_commits.txt ../master_commits.txt | wc -l
+    comm ../all_commits.txt ../master_commits.txt
+
+7.  git shortlog -s -n --all --no-merges --since="01 Jan 2013" | head -10
+        3623  Eli Zaretskii
+        3355  Paul Eggert
+        3305  Glenn Morris
+        1810  Lars Ingebrigtsen
+        1775  Stefan Monnier
+        1588  Michael Albinus
+        650  Dmitry Gutov
+        567  Noam Postavsky
+        488  Alan Mackenzie
+        469  Juri Linkov
+
