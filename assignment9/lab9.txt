@@ -1,4 +1,5 @@
 git clone ~eggert/src/gnu/emacs-CS-35L
+cd ~eggert/src/gnu/emacs-CS-35L
 
 1.  git ls-files | xargs -d '\n' du -ch
         There 159M worth of working files in this directory. I ran git ls-files 
@@ -6,17 +7,17 @@ git clone ~eggert/src/gnu/emacs-CS-35L
         to du to find the size and produce a total using the -c flag.
     cd emacs-CS-35L
     du -h
-        There are 503M total in the emacs-CS-35L folder
+        There are 509M total in the emacs-CS-35L folder
     cd .git
     du -h 
-        There are 343M total in the .git folder folder
+        There are 350M total in the .git folder folder
         largest file is in the folder emacs-CS-35L/.git/objects/pack (343M) 
         and is called pack-24e56b1749b9320c560213d9045fa6cee42b4174.pack
     cd .git
    
 2.  git branch
     git branch | wc -l
-        There is only 1 local branch, master.
+        There are 176 local branches.
     git branch -r | wc -l
         There are 177 branches that are remote.
 
@@ -24,26 +25,72 @@ git clone ~eggert/src/gnu/emacs-CS-35L
         There is only one remote repository for this repo located at 
         /u/cs/fac/eggert/src/gnu/emacs-CS-35L
 
-4.  
+4.  git for-each-ref --sort=-committerdate refs/heads/ | head
+        19aecd340b7b3ab54629b790ba70a90130bad63d commit refs/heads/master
+        d2873706749ef68803e79bab6109a534f4c9d23a commit refs/heads/scratch/joaot/make-completion-at-point-function
+        dd3fa9411a28175f9a1a984a69cfa7162023c5df commit refs/heads/feature/windows-with-utils
+        8f22251e595d7598d6643b0d24bf5f409dc59fa8 commit refs/heads/scratch/completion-api
+        8a4de19dfb52551a65c360a9346ede137d0fc6e8 commit refs/heads/scratch/a-modest-completion-redesign-proposal
+        2b0f589134d9427a96ab8cf0d8473715740984ef commit refs/heads/scratch/fido-mode
+        924a4201d24c10c48db920815ebf98dfaadc1e85 commit refs/heads/feature/gnus-select2
+        7a10082093791f0e035e4f9f95a774a7be1cd586 commit refs/heads/feature/extend_face_id
+        079461b360a2467ff4ab2ec57516c6f9e45f50fe commit refs/heads/scratch/jit-lock-antiblink-cleaned-up
+        55dcd32ad2209dc34bfb6b713bf73be9bf4c4cb2 commit refs/heads/emacs-26
 
 5.  git rev-list --count HEAD
         There are 139583 commits on the master branch.
 
-6.  
-    git rev-list --remotes | sort > ../all_commits.txt
+6.  git rev-list --remotes | sort > ../all_commits.txt
     git rev-list HEAD | sort > ../master_commits.txt
     comm -12 ../all_commits.txt ../master_commits.txt | wc -l
     comm ../all_commits.txt ../master_commits.txt
 
-7.  git shortlog -s -n --all --no-merges --since="01 Jan 2013" | head -10
-        3623  Eli Zaretskii
-        3355  Paul Eggert
-        3305  Glenn Morris
-        1810  Lars Ingebrigtsen
-        1775  Stefan Monnier
-        1588  Michael Albinus
-        650  Dmitry Gutov
-        567  Noam Postavsky
-        488  Alan Mackenzie
-        469  Juri Linkov
+    git log --pretty=oneline --first-parent master
+    git log --abbrev-commit --first-parent master
 
+    
+7.  git shortlog -s -n --all --since="01 Jan 2013" | head -10
+        3736  Eli Zaretskii
+        3712  Glenn Morris
+        3644  Paul Eggert
+        1812  Lars Ingebrigtsen
+        1799  Stefan Monnier
+        1661  Michael Albinus
+        654  Dmitry Gutov
+        596  Noam Postavsky
+        504  Alan Mackenzie
+        470  Juri Linkov
+
+8.  Use the gitk command to visualize the commit graph in this repository. 
+    If you are SSHing into SEASnet, you’ll need to log in via ssh -X or 
+    (less securely) ssh -Y. Draw a diagram relating the following commits to each 
+    other, and explain what likely happened to cause their commit-graph 
+    neighborhood. You need not list every single intervening commit 
+    individually; you can simply use ellipses.
+    4ea37c2b8b0c5a68fde59770c3536195e0972217
+        *on the master branch*
+        2017-09-16 04:31:38
+        Cope better with C++ and objective C protection keywords in class
+        declarations
+	977cd6cb28a37744966ec62f70cf62659f6f302a
+        *on the master branch*
+        2017-09-16 05:53:03
+        Increment emacs version to 27.0.50
+    625cee531623feddbe3174fad52c7db96ec60bb3
+        2017-09-16 05:34:15
+        Start emacs-26 release branch
+	5490ccc5ebf39759dfd084bbd31f464701a3e775
+        2017-09-16 09:49:28
+        Add lisp variable lcms-d65-xyz
+	0c06b93c1e467debd401eb0b3be4652fde14fa95
+        2017-09-25 11:16:05
+        Merge from origin/emacs-26
+	820739bbb572b30b6ce45756c9960e48dca859af
+        2017-09-23 00:45:46
+        Fix wording
+	00e4e3e9d273a193620c3a4bb4914e555cb8e343
+        2017-09-23 11:43:58
+        Fix undecorated frame resizing issues on NS
+	49cd561dc62ea6b3fbedab7aef0f020733f4cf09
+	abcb2e62dae6aa26308f7ac9efc89247f89cbe65
+	98ac36efe4ce4bd3a0bca76fc73ce6c7abaa4371
