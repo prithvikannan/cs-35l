@@ -49,17 +49,17 @@ cd ~eggert/src/gnu/emacs-CS-35L
     git log --abbrev-commit --first-parent master
 
     
-7.  git shortlog -s -n --all --since="01 Jan 2013" | head -10
-        3736  Eli Zaretskii
-        3712  Glenn Morris
-        3644  Paul Eggert
-        1812  Lars Ingebrigtsen
-        1799  Stefan Monnier
-        1661  Michael Albinus
-        654  Dmitry Gutov
-        596  Noam Postavsky
-        504  Alan Mackenzie
-        470  Juri Linkov
+7.  git shortlog -s -n --since="01 Jan 2013" HEAD | head -10
+        3691  Eli Zaretskii
+        3644  Glenn Morris
+        3604  Paul Eggert
+        1806  Lars Ingebrigtsen
+        1784  Stefan Monnier
+        1571  Michael Albinus
+        619  Dmitry Gutov
+        576  Noam Postavsky
+        471  Alan Mackenzie
+        469  Juri Linkov
 
 8.  Use the gitk command to visualize the commit graph in this repository. 
     If you are SSHing into SEASnet, you’ll need to log in via ssh -X or 
@@ -92,5 +92,11 @@ cd ~eggert/src/gnu/emacs-CS-35L
         2017-09-23 11:43:58
         Fix undecorated frame resizing issues on NS
 	49cd561dc62ea6b3fbedab7aef0f020733f4cf09
+        2017-09-25 08:52:24
+        Special code for smb
 	abcb2e62dae6aa26308f7ac9efc89247f89cbe65
+        2017-09-25 11:19:07
+        Merge from origin/emacs-26
 	98ac36efe4ce4bd3a0bca76fc73ce6c7abaa4371
+        2017-09-29 22:06:14
+        Merge from origin/emacs-26    
