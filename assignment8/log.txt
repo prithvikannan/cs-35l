@@ -127,7 +127,7 @@ gpg2 --gen-key
     uid                  Prithvi Kannan (making a key using gpg2) <prithvi.kannan@gmail.com>
     sub   2048R/AFED4338 2019-11-25
 gpg2 --clearsign eeprom
-gpg2 --detach-sign eeprom
+gpg2 --detach-sign  eeprom
 
 mkdir -m go-rwx .gnupg
 gpg2 --homedir .gnupg --import hw-pubkey.asc
