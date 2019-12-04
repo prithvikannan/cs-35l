@@ -2,6 +2,7 @@
 
 # Prithvi Kannan
 # UID: 405110096
+
 from collections import defaultdict
 import os
 import zlib
@@ -25,13 +26,17 @@ top_level = find_root(os.getcwd())
 
 ## NUMBER 2 ##
 
-# find .git/refs/heads/ -type f
-
-# to get branches, go to /.git/refs/heads/
-# each file name is the name of the branch
-# the contents of the file contain the hash
-
+branchHash = {}
 branches = os.listdir(top_level + '/.git/refs/heads/')
+for b in sorted(branches):
+    hash = open(top_level + '/.git/refs/heads/' + b, 'r').read().strip('\n')
+    if hash not in branchHash: 
+        temp = set()
+    else:
+        temp = branchHash[hash]
+    temp.add(b)
+    branchHash[hash] = temp
+
 # print(branches)
 
 
@@ -55,14 +60,11 @@ def getParentsOf(hash):
     contents = zlib.decompress(open(path, 'rb').read())
     if (contents[:6] == b'commit'):
         contents = contents.decode().split('\n')
-        for line in contents:
+        for line in sorted(contents):
             if(line[:6] == 'parent'):
                 parent_hash = line[7:]
                 parent_hashes.append(parent_hash)
     return parent_hashes
-
-# find .git/objects -type f
-
 
 object_dir = top_level + '/.git/objects/'
 prefixes = os.listdir(object_dir)
@@ -70,15 +72,13 @@ prefixes = os.listdir(object_dir)
 commits = []
 nodes = {}
 
-for prefix in prefixes:
+for prefix in sorted (prefixes):
     folders = os.listdir(object_dir + prefix + '/')
-    for hash in folders:
+    for hash in sorted (folders):
         file_name = object_dir + prefix + '/' + hash
         contents = zlib.decompress(open(file_name, 'rb').read())
         if (contents[:6] == b'commit'):
             hash = prefix + hash
-            # print('hash ' + hash, end='')
-            # print(getParentsOf(hash))
             stack = [hash]
             while(len(stack) != 0):
                 curr = stack.pop()
@@ -87,7 +87,7 @@ for prefix in prefixes:
                 else:
                     curr_node = nodes[curr]
                 parents = getParentsOf(curr)
-                for parent in parents:
+                for parent in sorted(parents):
                     curr_node.parents.add(parent)
                     if parent not in nodes:
                         stack.append(parent)
@@ -99,102 +99,61 @@ for prefix in prefixes:
                     nodes[parent] = parent_node
                 nodes[curr] = curr_node
 
-for hash in nodes:
-    node = nodes[hash]
-    print('node - ' + node.commit_hash)
-    for children in node.children:
-        print('child - ', end='')
-        print(children)
-    for parent in node.parents:
-        print('parent - ', end='')
-        print(parent)
-    print()
+def printGraph(nodes):
+    nodes
+    for hash in sorted (nodes.keys()):
+        node = nodes[hash]
+        print('node - ' + node.commit_hash)
+        for children in sorted (node.children):
+            print('child - ', end='')
+            print(children)
+        for parent in sorted (node.parents):
+            print('parent - ', end='')
+            print(parent)
+        print()
 
+printGraph(nodes)
 
 ## NUMBER 4 ##
 
-# A Python program to print topological sorting of a graph
-# using indegrees
+from collections import deque
 
-# Class to represent a graph
+def DFS_topo(nodes):
+    order = []
+    sources = []
+    visited = set()
+    for hash in sorted (nodes):
+        if len(nodes[hash].parents) == 0:
+            sources.append(hash)
+    for s in sorted (sources):
+        #DFS
+        stack = [s]
+        while len(stack)!=0:
+            curr = stack.pop()
+            if curr not in visited:
+                visited.add(curr)
+                order.append(curr)
+                children = nodes[curr].children
+                for c in sorted (children):
+                    stack.append(c)
+    return order 
 
-
-class Graph:
-    def __init__(self, vertices):
-        # self.graph = defaultdict(CommitNode)  # dictionary containing adjacency List
-        self.graph = defaultdict(list)  # dictionary containing adjacency List
-        self.V = vertices  # No. of vertices
-
-    # function to add an edge to graph
-    def addEdge(self, u, v):
-        self.graph[u].append(v)
-
-    # The function to do Topological Sort.
-
-    def topologicalSort(self):
-
-        # Create a vector to store indegrees of all
-        # vertices. Initialize all indegrees as 0.
-        in_degree = [0]*(self.V)
-
-        # Traverse adjacency lists to fill indegrees of
-        # vertices. This step takes O(V+E) time
-        for i in self.graph:
-            for j in self.graph[i]:
-                in_degree[j] += 1
-        # for i in self.graph:
-        #     for j in self.graph[i]:
-        #         in_degree[j] += 1
-
-        # Create an queue and enqueue all vertices with
-        # indegree 0
-        queue = []
-        for i in range(self.V):
-            if in_degree[i] == 0:
-                queue.append(i)
-
-        # Initialize count of visited vertices
-        cnt = 0
-
-        # Create a vector to store result (A topological
-        # ordering of the vertices)
-        top_order = []
-
-        # One by one dequeue vertices from queue and enqueue
-        # adjacents if indegree of adjacent becomes 0
-        while queue:
-
-            # Extract front of queue (or perform dequeue)
-            # and add it to topological order
-            u = queue.pop(0)
-            top_order.append(u)
-
-            # Iterate through all neighbouring nodes
-            # of dequeued node u and decrease their in-degree
-            # by 1
-            for i in self.graph[u]:
-                in_degree[i] -= 1
-                # If in-degree becomes zero, add it to queue
-                if in_degree[i] == 0:
-                    queue.append(i)
-
-            cnt += 1
-
-        # Check if there was a cycle
-        if cnt != self.V:
-            print ("There exists a cycle in the graph")
-        else:
-            # Print topological order
-            print (top_order)
+order = DFS_topo(nodes)
 
 
-g = Graph(6)
-g.addEdge(5, 2)
-g.addEdge(5, 0)
-g.addEdge(4, 0)
-g.addEdge(4, 1)
-g.addEdge(2, 3)
-g.addEdge(3, 1)
+## NUMBER 5 ##
 
-# g.topologicalSort()
+order = order[::-1]
 
+i = 0
+while i < len(order):
+    print(order[i], end='')
+    if order[i] in branchHash:
+        for b in sorted (branchHash[order[i]]):
+            print(' ' + b, end='')
+    print()
+    if (i < len(order)-1 and order[i+1] not in nodes[order[i]].parents):
+        for n in nodes[order[i]].parents:
+            print(n + '=')
+            print()
+    i += 1
