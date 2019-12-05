@@ -1,0 +1,18 @@
+35L final notes:
+
+assign1
+assign2
+assign3
+assign4
+assign5
+    sys calls vs lib functionss
+    understand overhead
+    file based sys calls (read,write,open,close)
+    check #5 on sample final
+assign6
+    read his slides
+    will not go beyond scope of hw and lab
+assign7
+assign8
+assign9
+assign10
