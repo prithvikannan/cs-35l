@@ -40,63 +40,83 @@ cd ~eggert/src/gnu/emacs-CS-35L
 5.  git rev-list --count HEAD
         There are 139583 commits on the master branch.
 
-6.  git rev-list --remotes | sort > ../all_commits.txt
-    git rev-list HEAD | sort > ../master_commits.txt
-    comm -12 ../all_commits.txt ../master_commits.txt | wc -l
-    comm ../all_commits.txt ../master_commits.txt
-
-    git log --pretty=oneline --first-parent master
-    git log --abbrev-commit --first-parent master
-
+6.  git rev-list --all | wc -l
+        There are is 143910 total commits on a branch. 139583/143910 * 100 is 
+        96.99%, so ~97% of all commits are on master. 
     
-7.  git shortlog -s -n --since="01 Jan 2013" HEAD | head -10
-        3691  Eli Zaretskii
-        3644  Glenn Morris
-        3604  Paul Eggert
-        1806  Lars Ingebrigtsen
-        1784  Stefan Monnier
-        1571  Michael Albinus
-        619  Dmitry Gutov
-        576  Noam Postavsky
-        471  Alan Mackenzie
-        469  Juri Linkov
+7.  git shortlog -s -n --since="31 Dec 2012" HEAD | head -10
+        I found these flags in the git shortlog man page, where -s gives summary,
+        -n sorts by the counts of outputs, --since finds those after a certain 
+        date, and HEAD says to look at the head branch. 
 
-8.  Use the gitk command to visualize the commit graph in this repository. 
-    If you are SSHing into SEASnet, you’ll need to log in via ssh -X or 
-    (less securely) ssh -Y. Draw a diagram relating the following commits to each 
-    other, and explain what likely happened to cause their commit-graph 
-    neighborhood. You need not list every single intervening commit 
-    individually; you can simply use ellipses.
-    4ea37c2b8b0c5a68fde59770c3536195e0972217
-        *on the master branch*
-        2017-09-16 04:31:38
-        Cope better with C++ and objective C protection keywords in class
-        declarations
-	977cd6cb28a37744966ec62f70cf62659f6f302a
-        *on the master branch*
-        2017-09-16 05:53:03
-        Increment emacs version to 27.0.50
-    625cee531623feddbe3174fad52c7db96ec60bb3
-        2017-09-16 05:34:15
-        Start emacs-26 release branch
+        3691	Eli Zaretskii
+        3647	Glenn Morris
+        3605	Paul Eggert
+        1806	Lars Ingebrigtsen
+        1784	Stefan Monnier
+        1571	Michael Albinus
+        619	Dmitry Gutov
+        576	Noam Postavsky
+        471	Alan Mackenzie
+        469	Juri Linkov
+
+8.      First I took notes on each commit from gitk:
+
+        4ea37c2b8b0c5a68fde59770c3536195e0972217
+                *on the master branch*
+                2017-09-16 04:31:38
+                Cope better with C++ and objective C protection keywords in class
+                declarations
+        977cd6cb28a37744966ec62f70cf62659f6f302a
+                *on the master branch*
+                2017-09-16 05:53:03
+                Increment emacs version to 27.0.50
+        625cee531623feddbe3174fad52c7db96ec60bb3
+                2017-09-16 05:34:15
+                Start emacs-26 release branch
 	5490ccc5ebf39759dfd084bbd31f464701a3e775
-        2017-09-16 09:49:28
-        Add lisp variable lcms-d65-xyz
+                2017-09-16 09:49:28
+                Add lisp variable lcms-d65-xyz
 	0c06b93c1e467debd401eb0b3be4652fde14fa95
-        2017-09-25 11:16:05
-        Merge from origin/emacs-26
+                2017-09-25 11:16:05
+                Merge from origin/emacs-26
 	820739bbb572b30b6ce45756c9960e48dca859af
-        2017-09-23 00:45:46
-        Fix wording
+                2017-09-23 00:45:46
+                Fix wording
 	00e4e3e9d273a193620c3a4bb4914e555cb8e343
-        2017-09-23 11:43:58
-        Fix undecorated frame resizing issues on NS
+                2017-09-23 11:43:58
+                Fix undecorated frame resizing issues on NS
 	49cd561dc62ea6b3fbedab7aef0f020733f4cf09
-        2017-09-25 08:52:24
-        Special code for smb
+                2017-09-25 08:52:24
+                Special code for smb
 	abcb2e62dae6aa26308f7ac9efc89247f89cbe65
-        2017-09-25 11:19:07
-        Merge from origin/emacs-26
+                2017-09-25 11:19:07
+                Merge from origin/emacs-26
 	98ac36efe4ce4bd3a0bca76fc73ce6c7abaa4371
-        2017-09-29 22:06:14
-        Merge from origin/emacs-26    
+                2017-09-29 22:06:14
+                Merge from origin/emacs-26    
+
+        Using the notes from above, I created this tree. Lines represent direct
+        parent-child relationships while ellipses mean there are multiple 
+        commits in between. 
+
+
+          4ea37c2b8b0c5a68fde59770c3536195e0972217
+              /                              \
+ 977cd6cb28a37744966ec62f70cf62659f6f302a     \
+                   .                           \
+                    .            625cee531623feddbe3174fad52c7db96ec60bb3 
+                      .                              .
+                       .         5490ccc5ebf39759dfd084bbd31f464701a3e775 
+                        .                .
+                0c06b93c1e467debd401eb0b3be4652fde14fa95 
+                .                   .
+               .     820739bbb572b30b6ce45756c9960e48dca859af
+             .              |
+            .        00e4e3e9d273a193620c3a4bb4914e555cb8e343
+          .                             .
+         .           49cd561dc62ea6b3fbedab7aef0f020733f4cf09
+       .                        |
+      .              abcb2e62dae6aa26308f7ac9efc89247f89cbe65
+     .                  .
+    98ac36efe4ce4bd3a0bca76fc73ce6c7abaa4371

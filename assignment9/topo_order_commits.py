@@ -47,10 +47,9 @@ def get_parents_of(hash):
     return parent_hashes
 
 def print_graph(nodes):
-    nodes
     for hash in sorted(nodes.keys()):
         node = nodes[hash]
-        print('node - ' + node.commit_hash)
+        print('node - ' + node.commit_hash) 
         for children in sorted(node.children):
             print('child - ', end='')
             print(children)
