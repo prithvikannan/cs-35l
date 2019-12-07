@@ -120,3 +120,7 @@ cd ~eggert/src/gnu/emacs-CS-35L
       .              abcb2e62dae6aa26308f7ac9efc89247f89cbe65
      .                  .
     98ac36efe4ce4bd3a0bca76fc73ce6c7abaa4371
+
+        This commit graph seems to have been created by users working on two 
+        branches of the emacs repository and then merged back together into 
+        the main emacs branch.
